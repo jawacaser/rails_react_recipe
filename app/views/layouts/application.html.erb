@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsReactRecipe</title>
+    <%# <meta name="viewport" content="width=device-width,initial-scale=1"> default %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- application.html.erb in Head tag below turbolinks ||| added these -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%# <%= javascript_pack_tag 'Index' %> 
+    <meta name=“turbolinks-cache-control” content=“no-cache”>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_pack_tag 'Index', 'data-turbo-track': 'reload' %>
+
+    <%= javascript_importmap_tags %>
+
+    
+    
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
