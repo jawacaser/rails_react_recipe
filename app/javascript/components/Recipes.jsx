@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { render } from 'react-dom';
-import { Link } from 'react-router-dom';
-import { RecipeCards } from './RecipeCards';
+import { Link, Navigate } from 'react-router-dom';
+import RecipeCards from './RecipeCards';
 
-export const Recipes = (props) => {
+export default ({props}) => {
     const [recipes, setRecipes] = useState([])
 
     useEffect(() => {
@@ -15,12 +14,14 @@ export const Recipes = (props) => {
                 }
                 throw new Error("Network response was not ok.");
             })
-            .then(response => setRecipes(response))
-            .catch(() => props.history.push("/"));
-    }, [recipes]);
+            .then(response => {
+                console.log(response)
+                setRecipes(response)})
+            .catch(() => Navigate("/"));
+    }, []);
 
     return (
-        <>
+        <div>
             <section className="jumbotron jumbotron-fluid text-center">
                 <div className="container py-5">
                     <h1 className="display-4">Recipes for feeling good...</h1>
@@ -29,21 +30,19 @@ export const Recipes = (props) => {
                     </p>
                 </div>
             </section>
-            <div className="py-5">
+            <div className="py-5 px-4">
                 <main className="Container">
-                    <div className="text-right mb-3">
+                    <div className="text-end mb-3">
                         <Link to="/recipe" className="btn custom-button">
                             Create New Recipe
                         </Link>
                     </div>
-                    <div className="row">
-                        <RecipeCards recipes={recipes} />
-                    </div>
+                    <RecipeCards recipes={recipes} />
                     <Link to="/" className="btn btn-link">
                         Home
                     </Link>
                 </main>
             </div>
-        </>
+        </div>
     );
 }

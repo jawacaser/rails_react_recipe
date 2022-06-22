@@ -1,6 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const RecipeCards = (recipes) => {
+export default ({recipes}) => {
     const allRecipes = recipes.map((recipe, index) => (
         <div key={index} className="col-md-6 col-lg-4">
             <div className="card mb-4">
@@ -21,11 +22,9 @@ export const RecipeCards = (recipes) => {
         </div>
     );
 
-    function display() {
-        return recipes.length > 0 ? allRecipes : noRecipe
-    }
-
     return (
-        {display}
+        <div className="row">
+            {recipes.length > 0 ? allRecipes : noRecipe}
+        </div>
     )
 }
