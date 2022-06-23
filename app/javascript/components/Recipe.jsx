@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import RecipeCards from './RecipeCards';
 
 export default ({props}) => {
     const defaultState = { ingredients: "" }
