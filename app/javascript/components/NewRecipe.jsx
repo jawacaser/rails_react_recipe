@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
 export default ({props}) => {
-    const defaultState = {
-        name: "",
-        ingredients: "",
-        instruction: ""
-    };
-    const [newRecipe, setNewRecipe] = useState(defaultState)
+    const [name, setName] = useState("")
+    const [ingredients, setIngredients] = useState("")
+    const [instruction, setInstruction] = useState("")
 
     function stripHtmlEntities(str) {
         return String(str)
@@ -16,13 +13,18 @@ export default ({props}) => {
     }
 
     function onChange(event) {
-        setNewRecipe({ [event.target.name]: event.target.value });
+        if (event.target.name == "name") {
+            setName(event.target.value)
+        } else if (event.target.name == "ingredients") {
+            setIngredients(event.target.value)
+        } else if (event.target.name == "instruction") {
+            setInstruction(event.target.value)
+        }
     }
 
     function onSubmit(event) {
         event.preventDefault();
         const url = "/api/v1/recipes/create";
-        const { name, ingredients, instruction } = newRecipe;
 
         if (name.length == 0 || ingredients.length == 0 || instruction == 0) {
             return
@@ -34,7 +36,7 @@ export default ({props}) => {
             instruction: instruction.replace(/\n/g, "<br> <br>")
         };
 
-        const token = document.querySelector('meta[name="csrf-token"]').textContent;
+        const token = document.querySelector('meta[name="csrf-token"]').content;
         fetch(url, {
             method: "POST",
             headers: {
@@ -52,4 +54,58 @@ export default ({props}) => {
             .then(response => Navigate(`/recipe/${response.id}`))
             .catch(error => console.log(error.message));
     }
+
+    return (
+        <div className="container mt-5">
+            <div className="row">
+                <div className="col-sm-12 col-lg-6 offset-lg-3">
+                    <h1 className="font-weight-normal mb-5">
+                        Add a new recipe to your awesome recipe collection.
+                    </h1>
+                    <form onSubmit={onSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="recipeName">Recipe name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="recipeName"
+                                className="form-control"
+                                required
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="recipeIngredients">Ingredients</label>
+                            <input
+                                type="text"
+                                name="ingredients"
+                                id="recipeIngredients"
+                                className="form-control"
+                                required
+                                onChange={onChange}
+                            />
+                            <small id="ingredientsHelp" className="form-text text-muted">
+                                Separate each ingredient with a comma.
+                            </small>
+                        </div>
+                        <label htmlFor="instruction">Preparation Instructions</label>
+                        <textarea
+                            className="form-control"
+                            id="instruction"
+                            name="instruction"
+                            rows="5"
+                            required
+                            onChange={onChange}
+                        />
+                        <button type="submit" className="btn custom-button mt-3">
+                            Create Recipe
+                        </button>
+                        <Link to="/recipes" className="btn btn-link mt-3">
+                            Back to recipes
+                        </Link>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
 }

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Recipes from "./Recipes";
 import Recipe from "./Recipe";
+import NewRecipe from "./NewRecipe";
 
 export default (
   <Router>
@@ -10,6 +11,7 @@ export default (
       <Route path="/" exact element={<Home />} />
       <Route path="/recipes" exact element={<Recipes />} />
       <Route path="/recipe/:id" exact element={<Recipe />} />
+      <Route path="/recipe" exact element={<NewRecipe />} />
     </Routes>
   </Router>
 );
