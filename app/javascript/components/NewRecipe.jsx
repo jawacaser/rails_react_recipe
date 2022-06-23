@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import SetVarMainTemplatePlugin from 'webpack/lib/SetVarMainTemplatePlugin';
 
 export default ({props}) => {
     const [name, setName] = useState("")
     const [ingredients, setIngredients] = useState("")
     const [instruction, setInstruction] = useState("")
+    const [image, setImage] = useState("")
     const navigate = useNavigate();
+    const defaultImg = `https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg`
+
 
     function stripHtmlEntities(str) {
         return String(str)
@@ -20,6 +24,8 @@ export default ({props}) => {
             setIngredients(event.target.value)
         } else if (event.target.name == "instruction") {
             setInstruction(event.target.value)
+        } else if (event.target.name == "image") {
+            setImage(event.target.value)
         }
     }
 
@@ -34,7 +40,8 @@ export default ({props}) => {
         const body = {
             name,
             ingredients,
-            instruction: instruction.replace(/\n/g, "<br> <br>")
+            instruction: instruction.replace(/\n/g, "<br> <br>"),
+            image: image.length == 0 ? defaultImg : image
         };
 
         const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -98,6 +105,19 @@ export default ({props}) => {
                             required
                             onChange={onChange}
                         />
+                        <div className="form-group">
+                            <label htmlFor="image">Image Link</label>
+                            <input
+                                type="text"
+                                name="image"
+                                id="recipeImage"
+                                className="form-control"
+                                onChange={onChange}
+                            />
+                            <small id="imageHelp" className="form-text text-muted">
+                                Optional
+                            </small>
+                        </div>
                         <button type="submit" className="btn custom-button mt-3">
                             Create Recipe
                         </button>
