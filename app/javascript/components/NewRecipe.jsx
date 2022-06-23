@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default ({props}) => {
     const [name, setName] = useState("")
     const [ingredients, setIngredients] = useState("")
     const [instruction, setInstruction] = useState("")
+    const navigate = useNavigate();
 
     function stripHtmlEntities(str) {
         return String(str)
@@ -22,7 +23,7 @@ export default ({props}) => {
         }
     }
 
-    function onSubmit(event) {
+    async function onSubmit(event) {
         event.preventDefault();
         const url = "/api/v1/recipes/create";
 
@@ -37,7 +38,7 @@ export default ({props}) => {
         };
 
         const token = document.querySelector('meta[name="csrf-token"]').content;
-        fetch(url, {
+        await fetch(url, {
             method: "POST",
             headers: {
                 "X-CSRF-Token": token,
@@ -51,7 +52,7 @@ export default ({props}) => {
                 }
                 throw new Error("Network response was not ok.");
             })
-            .then(response => Navigate(`/recipe/${response.id}`))
+            .then(response => navigate(`/recipe/${response.id}`))
             .catch(error => console.log(error.message));
     }
 

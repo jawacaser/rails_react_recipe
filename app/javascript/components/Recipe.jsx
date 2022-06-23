@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default ({props}) => {
     const defaultState = { ingredients: "" }
     const [oneRecipe, setOneRecipe] = useState(defaultState)
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = `/api/v1/show/${id}`
@@ -17,7 +18,7 @@ export default ({props}) => {
                 throw new Error("Network response was not ok.");
             })
             .then(response => setOneRecipe(response))
-            .catch(() => Navigate("/recipes"));
+            .catch(() => navigate("/recipes"));
     }, [])
 
     function addHtmlEntities(str) {
