@@ -46,14 +46,14 @@ export default ({props}) => {
             },
             body: JSON.stringify(body)
         })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Network response was not ok.");
-            })
-            .then(response => navigate(`/recipe/${response.id}`))
-            .catch(error => console.log(error.message));
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => navigate(`/recipe/${response.id}`))
+        .catch(error => console.log(error.message));
     }
 
     return (
