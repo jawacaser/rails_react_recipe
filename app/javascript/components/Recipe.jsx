@@ -27,6 +27,12 @@ export default ({props}) => {
             .replace(/&gt;/g, ">");
     }
 
+    function confirmBeforeDelete() {
+        if (window.confirm('Are you sure you want to delete this recipe?')) {
+            deleteRecipe()
+        }
+    }
+
     async function deleteRecipe() {
         const url = `/api/v1/destroy/${id}`;
         const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -87,7 +93,10 @@ export default ({props}) => {
                         />
                     </div>
                     <div className="col-sm-12 col-lg-2">
-                        <button type="button" className="btn btn-danger" onClick={deleteRecipe}>
+                        <button type="button" className="btn custom-button">
+                            Edit Recipe
+                        </button>
+                        <button type="button" className="btn btn-danger my-2" onClick={confirmBeforeDelete}>
                             Delete Recipe
                         </button>
                     </div>
