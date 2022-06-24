@@ -119,7 +119,7 @@ export default ({props}) => {
                             </small>
                         </div>
                         <button type="submit" className="btn custom-button mt-3">
-                            Create Recipe
+                            Save Recipe
                         </button>
                         <Link to="/recipes" className="btn btn-link mt-3">
                             Back to recipes
