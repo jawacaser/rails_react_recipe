@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SetVarMainTemplatePlugin from 'webpack/lib/SetVarMainTemplatePlugin';
+import Form from './Form';
+
 
 export default ({props}) => {
     const [name, setName] = useState("")
@@ -11,11 +12,11 @@ export default ({props}) => {
     const defaultImg = `https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg`
 
 
-    function stripHtmlEntities(str) {
-        return String(str)
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
-    }
+    // function stripHtmlEntities(str) {
+    //     return String(str)
+    //       .replace(/</g, "&lt;")
+    //       .replace(/>/g, "&gt;");
+    // } Do I actually need this?
 
     function onChange(event) {
         if (event.target.name == "name") {
@@ -70,61 +71,7 @@ export default ({props}) => {
                     <h1 className="font-weight-normal mb-5">
                         Add a new recipe to your awesome recipe collection.
                     </h1>
-                    <form onSubmit={onSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="recipeName">Recipe name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="recipeName"
-                                className="form-control"
-                                required
-                                onChange={onChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="recipeIngredients">Ingredients</label>
-                            <input
-                                type="text"
-                                name="ingredients"
-                                id="recipeIngredients"
-                                className="form-control"
-                                required
-                                onChange={onChange}
-                            />
-                            <small id="ingredientsHelp" className="form-text text-muted">
-                                Separate each ingredient with a comma.
-                            </small>
-                        </div>
-                        <label htmlFor="instruction">Preparation Instructions</label>
-                        <textarea
-                            className="form-control"
-                            id="instruction"
-                            name="instruction"
-                            rows="5"
-                            required
-                            onChange={onChange}
-                        />
-                        <div className="form-group">
-                            <label htmlFor="image">Image Link</label>
-                            <input
-                                type="text"
-                                name="image"
-                                id="recipeImage"
-                                className="form-control"
-                                onChange={onChange}
-                            />
-                            <small id="imageHelp" className="form-text text-muted">
-                                Optional
-                            </small>
-                        </div>
-                        <button type="submit" className="btn custom-button mt-3">
-                            Save Recipe
-                        </button>
-                        <Link to="/recipes" className="btn btn-link mt-3">
-                            Back to recipes
-                        </Link>
-                    </form>
+                    <Form onSubmit={onSubmit} onChange={onChange} />
                 </div>
             </div>
         </div>

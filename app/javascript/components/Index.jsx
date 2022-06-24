@@ -4,6 +4,7 @@ import Home from "./Home";
 import Recipes from "./Recipes";
 import Recipe from "./Recipe";
 import NewRecipe from "./NewRecipe";
+import EditRecipe from "./EditRecipe";
 
 export default (
   <Router>
@@ -12,6 +13,7 @@ export default (
       <Route path="/recipes" exact element={<Recipes />} />
       <Route path="/recipe/:id" exact element={<Recipe />} />
       <Route path="/recipe" exact element={<NewRecipe />} />
+      <Route path="/edit/:id" exact element={<EditRecipe />} />
     </Routes>
   </Router>
 );

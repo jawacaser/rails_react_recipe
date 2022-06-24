@@ -93,7 +93,7 @@ export default ({props}) => {
                         />
                     </div>
                     <div className="col-sm-12 col-lg-2">
-                        <button type="button" className="btn custom-button">
+                        <button type="button" className="btn custom-button" onClick={()=>navigate(`/edit/${id}`)}>
                             Edit Recipe
                         </button>
                         <button type="button" className="btn btn-danger my-2" onClick={confirmBeforeDelete}>

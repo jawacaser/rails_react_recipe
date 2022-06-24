@@ -22,8 +22,7 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def update
-    recipe = Recipe.update(recipe_params)
-    if recipe
+    if recipe.update(recipe_params)
       render json: recipe
     else
       render json: recipe.errors
