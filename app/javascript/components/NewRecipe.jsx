@@ -11,13 +11,6 @@ export default ({props}) => {
     const navigate = useNavigate();
     const defaultImg = `https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg`
 
-
-    // function stripHtmlEntities(str) {
-    //     return String(str)
-    //       .replace(/</g, "&lt;")
-    //       .replace(/>/g, "&gt;");
-    // } Do I actually need this?
-
     function onChange(event) {
         if (event.target.name == "name") {
             setName(event.target.value)

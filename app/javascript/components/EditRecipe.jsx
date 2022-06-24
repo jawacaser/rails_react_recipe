@@ -19,6 +19,11 @@ export default ({props}) => {
     const navigate = useNavigate();
     const defaultImg = `https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg`
 
+    function stripHtmlEntities(str) {
+        return String(str)
+          .replace(/<br> <br>/g, "\n")
+    }
+
     useEffect(() => {
         const url = `/api/v1/show/${id}`
 
@@ -32,18 +37,11 @@ export default ({props}) => {
             .then(response => {
                 setName(response.name)
                 setIngredients(response.ingredients)
-                setInstruction(response.instruction)
+                setInstruction(stripHtmlEntities(response.instruction))
                 setImage(response.image != defaultImg ? response.image : "")
             })
             .catch(() => navigate(`/recipe/${id}`));
     }, [])
-
-
-    // function stripHtmlEntities(str) {
-    //     return String(str)
-    //       .replace(/</g, "&lt;")
-    //       .replace(/>/g, "&gt;");
-    // }
 
     function onChange(event) {
         if (event.target.name == "name") {
