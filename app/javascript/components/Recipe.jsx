@@ -69,7 +69,7 @@ export default ({props}) => {
     const recipeInstruction = addHtmlEntities(oneRecipe.instruction)
     
     return (
-        <div className="">
+        <div>
             <div className="hero position-relative d-flex align-items-center justify-content-center">
                 <img src={oneRecipe.image} alt={`${oneRecipe.name} image`} className="img-fluid position-absolute" />
                 <div className="overlay bg-dark position-absolute" />
@@ -77,33 +77,33 @@ export default ({props}) => {
                     {oneRecipe.name}
                 </h1>
             </div>
-            <div className="container py-5">
+            <div className="container pb-3 pt-2">
                 <div className="row">
                     <div className="col-sm-12 col-lg-3">
+                        
                         <ul className="list-group">
-                            <h5 className="mb-2">Ingredients</h5>
+                            <h5 className="mb-2 text-center">Ingredients</h5>
                             {ingredientList}
                         </ul>
                     </div>
-                    <div className="col-sm-12 col-lg-7">
-                        <h5 className="mb-2">Preparation Instructions</h5>
+                    <div className="col-sm-12 col-lg-7 my-3">
+                        <h5 className="mb-2 text-center">Preparation Instructions</h5>
                         <div dangerouslySetInnerHTML={{
                         __html: `${recipeInstruction}`
                         }}
                         />
                     </div>
-                    <div className="col-sm-12 col-lg-2">
-                        <button type="button" className="btn custom-button" onClick={()=>navigate(`/edit/${id}`)}>
+                    <div className="col-sm-12 col-lg-2 text-center">                      
+                        <button type="button" className="btn custom-button mx-2" onClick={()=>navigate(`/edit/${id}`)}>
                             Edit Recipe
-                        </button>
-                        <button type="button" className="btn btn-danger my-2" onClick={confirmBeforeDelete}>
-                            Delete Recipe
                         </button>
                     </div>
                 </div>
-                <Link to="/recipes" className="btn btn-link">
-                    Back to recipes
-                </Link>
+                <div className="text-center mt-3">
+                    <Link to="/recipes" className="btn btn-link">
+                        Back to recipes
+                    </Link>
+                </div>
             </div>
         </div>
     );
