@@ -4,7 +4,8 @@ import RecipeCards from './RecipeCards';
 
 export default ({props}) => {
     const [recipes, setRecipes] = useState([])
-    const backgroundImg = "https://lh3.googleusercontent.com/keKXXqXLgW_u84YpxLPKXi-EppxXxmwP5OIkuQVwXuAJh491CzTIglLxbTHBcRqzN0XHGYh367TaIVXZE3wIW_ij8acftoPJXQgE6jFHcgYrBcHOZcjqWuM2pOD4kJv4HqNZJTNoLnuVhCTtCmG9GGqNqE2lJny8eexdUwvoy8MFYGLTjFjqn5MCmbp8Ku1kOrz2M5J6A-eLTzbnTNmMifSdIN64Ip_vJIZFc0tU3rfKfVYZUE7OUfwWtRcKYtOg-Oxs-XBZjjJU9E0sVAtK-akAC0IV-vR14m_ddKndzcV_rJg26jG8yu1ffrxBCmBaZRV7CEToYj9bRiDI90gvh5SjL1oM57fjKsA7C5s6WFEtOs-lq7m-EQnL1P6Cc-qr38YSzOTj9qHmlGF4NYDj6z21-71kEAnDWS0N3grGry9toKUY0jtNzRiQi36LhTeAvOkpsYW9F_o3QqzoThVRWgmuZepqQg-XLisGIh5Mkl4OK9oE1P6rslZ5UE6RtLJ4QMRNaq5b-W9Vu39HpEBq4Bq1UuEFKS37ujhteNamRv4NhZqpyWMKtFiy2IlJkP569-aeQnmHMOrStXkaLZegmcsddgAHhucLPGzlyQuGyN2z3gLqcE0DB1L0fRbH7qBR7fIeZdIbWCQwd9gh8ibe_dgpwKaz7exORDvAtbBBn3ALVA4EsUH-1I7rOJ2BKbaLplffik06YPELIfOkIc9yFymp7QRsMLe6YTZFkRI4yb5gsbm6tXOqCUgC-aE5Pu9b7NvVm_OYlQoGDCRHWZ2K4_pBcBf2Lh8ncTqXv_ZlTEhRmPKcVFf8l0L_U5xtS7aMw4hXWsXMLlsQxZRZaWZuyXcQToy1qzbCG9QZKRUh=w1873-h1240-no?authuser=0"
+    const backgroundImg = "https://lh3.googleusercontent.com/pw/AM-JKLXF6NK9eM4qZ_cdMQnUY3KxMDvdiPYj9hslTMJdOmZDp47A2wwdz3aZVKkavtuvIydVSY_w8fQNOA0Z2pGoqFTqEoy78x7fjjHXOUY1Q3RQMYdCr7-BlyaaHoBsJiaLwQC8SsfzEhCi_jVmBjWRqu4=w1873-h1240-no?authuser=0"
+    
     useEffect(() => {
         const url = "/api/v1/recipes/index";
         fetch(url)
@@ -44,7 +45,7 @@ export default ({props}) => {
                         </Link>
                     </div>
                     <RecipeCards recipes={recipes} />
-                    <div className="btn-group d-flex align-items-center">
+                    <div className="btn-group d-flex justify-content-between">
                         <Link to="/" className="btn btn-link">
                             Home
                         </Link>
@@ -55,7 +56,7 @@ export default ({props}) => {
                             })}>
                             Back to Top
                         </button>
-                        <Link to="" className="btn btn-link">
+                        <Link to="/contact" className="btn btn-link">
                             Contact
                         </Link>
                     </div>

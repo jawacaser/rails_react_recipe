@@ -35,6 +35,15 @@
     color: #FFF !important;
     border: none;
   }
+  .custom-button2.btn {
+    background-color: white;
+    color: #293241;
+    border: none;
+  }
+  .custom-button2.btn:hover {
+    background-color: #C1E1C1;
+    color: #293241 !important;
+  }
   .hero {
     width: 100vw;
     height: 50vh;
@@ -76,4 +85,9 @@
     .rfs {
       font-size: 1.2rem;
     }
+  }
+
+  .too-large-img {
+    max-width: auto;
+    max-height: 200px;
   }

@@ -77,7 +77,7 @@ export default ({props}) => {
                     {oneRecipe.name}
                 </h1>
             </div>
-            <div className="container pb-3 pt-2">
+            <div className="container pb-3 pt-3">
                 <div className="row">
                     <div className="col-sm-12 col-lg-3">
                         
