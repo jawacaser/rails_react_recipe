@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 export default ({recipes}) => {
     const allRecipes = recipes.map((recipe, index) => (
         <div key={index} className="col-md-6 col-lg-4">
-            <div className="card mb-4">
+            <div className="card shadow p-3 mb-5 bg-white rounded primary-color">
                 <img src={recipe.image} className="card-img-top" alt={`${recipe.name} image`} />
-                <div className="card-body">
+                <div className="card-body text-center">
                     <h5 className="card-title">{recipe.name}</h5>
                     <Link to={`/recipe/${recipe.id}`} className="btn custom-button">
                         View Recipe

@@ -58,11 +58,11 @@ export default ({props}) => {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container my-4">
             <div className="row">
                 <div className="col-sm-12 col-lg-6 offset-lg-3">
-                    <h1 className="font-weight-normal mb-5">
-                        Add a new recipe to your awesome recipe collection.
+                    <h1 className="font-weight-normal mb-3 text-center">
+                        Add a new recipe to your collection.
                     </h1>
                     <Form onSubmit={onSubmit} onChange={onChange} />
                 </div>

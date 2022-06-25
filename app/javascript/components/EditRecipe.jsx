@@ -8,13 +8,7 @@ export default ({props}) => {
     const [ingredients, setIngredients] = useState("")
     const [instruction, setInstruction] = useState("")
     const [image, setImage] = useState("")
-    // let name, ingredients, instruction, image;
-    // const [recipe, setRecipe] = useState({
-    //     name: "",
-    //     ingredients: "",
-    //     instruction: "",
-    //     image: ""
-    // })
+
     const { id } = useParams();
     const navigate = useNavigate();
     const defaultImg = `https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg`
@@ -117,10 +111,10 @@ export default ({props}) => {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container my-4">
             <div className="row">
                 <div className="col-sm-12 col-lg-6 offset-lg-3">
-                    <h1 className="font-weight-normal mb-5">
+                    <h1 className="font-weight-normal mb-3">
                         Need to make some changes?
                     </h1>
                     <Form 
@@ -131,9 +125,11 @@ export default ({props}) => {
                         instruction={instruction}
                         image={image}
                     />
-                    <button type="button" className="btn btn-danger my-2" onClick={confirmBeforeDelete}>
+                    <div className="text-center">
+                    <button type="button" className="btn btn-danger my-2 btn-sm" onClick={confirmBeforeDelete}>
                             Delete Recipe
                     </button>
+                    </div>
                 </div>
             </div>
         </div>
