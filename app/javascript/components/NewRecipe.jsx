@@ -9,7 +9,7 @@ export default ({props}) => {
     const [instruction, setInstruction] = useState("")
     const [image, setImage] = useState("")
     const navigate = useNavigate();
-    const defaultImg = `https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg`
+    const defaultImg = `https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0`
 
     function onChange(event) {
         if (event.target.name == "name") {

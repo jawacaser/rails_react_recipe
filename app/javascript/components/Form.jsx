@@ -60,7 +60,7 @@ export default (props) => {
                 value={props.image}
             />
             <small id="imageHelp" className="form-text text-muted">
-                Optional
+                Optional (leave blank for default image)
             </small>
         </div>
         <div className="text-center">
