@@ -1,0 +1,93 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ .bg_primary-color {
+    background-color: #C1E1C1;
+  }
+  .primary-color {
+    background-color: #c1e1c1;
+  }
+  .bg_secondary-color {
+    background-color: #293241;
+  }
+  .secondary-color {
+    color: #293241;
+  }
+  .custom-button.btn {
+    background-color: #293241;
+    color: #FFF;
+    border: none;
+    min-width: 137px;
+  }
+  .custom-button.btn:hover {
+    color: #FFF !important;
+    border: none;
+  }
+  .custom-button2.btn {
+    background-color: white;
+    color: #293241;
+    border: none;
+  }
+  .custom-button2.btn:hover {
+    background-color: #C1E1C1;
+    color: #293241 !important;
+  }
+  .hero {
+    width: 100vw;
+    height: 50vh;
+  }
+  .hero img {
+    object-fit: cover;
+    object-position: top;
+    height: 100%;
+    width: 100%;
+  }
+  .hero2 {
+    width: 100vw;
+    height: 100vh;
+  }
+  .hero2 img {
+    object-fit: cover;
+    object-position: top;
+    height: 100%;
+    width: 100%;
+  }
+  .overlay {
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+  }
+  #recipe-list {
+    border: 1px solid #293241;
+  }
+  .test {
+    overflow-y: auto;
+    min-height: 450px;
+    min-block-size: 500px;
+  }
+  .rfs {
+    font-size: calc(.5rem + 1vw);
+  }
+  
+  @media (min-width: 1200px) {
+    .rfs {
+      font-size: 1.2rem;
+    }
+  }
+
+  .too-large-img {
+    max-width: auto;
+    max-height: 200px;
+  }
