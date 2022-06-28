@@ -293,7 +293,7 @@ Devise.setup do |config|
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
-  
+
   # UNCOMMENTED THIS METHOD TO DIRECT FAILS TO TURBO
   config.warden do |manager|
     manager.failure_app = TurboFailureApp
@@ -318,9 +318,9 @@ Devise.setup do |config|
   # ==> Turbolinks configuration
   # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work correctly:
   #
-  ActiveSupport.on_load(:devise_failure_app) do # UNCOMMENTED
-    include Turbolinks::Controller
-  end
+  # ActiveSupport.on_load(:devise_failure_app) do # UNCOMMENT????
+  #   include Turbolinks::Controller
+  # end
 
   # ==> Configuration for :registerable
 

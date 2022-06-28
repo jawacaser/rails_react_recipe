@@ -19,13 +19,8 @@
   </head>
 
   <body>
-      <%# Add flash messages per Devise setup suggest %>
-      <% if notice %>
-        <p class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert alert-danger"><%= alert %></p>
-      <% end %>
+    <%= render "custom/navigation" %>
+    <%= render "custom/flash" %>
     <%= yield %>
   </body>
 </html>
