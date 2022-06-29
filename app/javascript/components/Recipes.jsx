@@ -30,8 +30,9 @@ export default ({props}) => {
                     <p className="rfs text-muted my-4">
                         Short description about Let's Eat Well, etc etc etc.
                         This app is built with Rails 7 and React. I have implemented
-                        login functionality using Devise. This page is being built for my wife :)
-                        TODO: make login prettier, fix navbar collapse, hide buttons if out of user scope, serve better error notices
+                        login functionality using Devise.
+                        TODO: Make login prettier, Fix navbar collapse, Hide buttons if out of user scope, Serve better error notices
+                        (look into React-Router-Server possibly for many of these fixes)
                     </p>
                 </div>
             </section>
