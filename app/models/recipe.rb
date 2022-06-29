@@ -4,4 +4,6 @@ class Recipe < ApplicationRecord
     validates :ingredients, presence: true
     validates :instruction, presence: true
     validates :image, presence: true
+    validates :shared, presence: true
+    validates :likes
 end
