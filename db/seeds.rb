@@ -7,20 +7,20 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 1.times do |i|
-  User.create(email: "user-1@example.com", password: "password", password_confirmation: "password", username: "user#{i+1}", role: 0)
+  User.create(email: "user-1@example.com", password: "password", password_confirmation: "password", username: "user1", role: 0)
 end
 
 1.times do |i|
-  User.create(email: "user-2@example.com", password: "password", password_confirmation: "password", username: "ADMIN", role: 1)
+  User.create(email: "user-2@example.com", password: "password", password_confirmation: "password", username: "ADMINuser2", role: 1)
 end
 
 User.all.each do |u|
-  4.times do |i|
+  6.times do |i|
     u.recipes.create(
       name: "Recipe #{i + 1} #{u.username} #{u.role}",
       ingredients: '227g tub clotted cream, 25g butter, 1 tsp cornflour,100g parmesan, grated nutmeg, 250g fresh fettuccine or tagliatelle, snipped chives or chopped parsley to serve (optional)',
       instruction: 'In a medium saucepan, stir the clotted cream, butter, and cornflour over a low-ish heat and bring to a low simmer. Turn off the heat and keep warm.',
-      shared: i == 0 ? true : false
+      shared: i < 5 ? true : false
     )
   end
 end
