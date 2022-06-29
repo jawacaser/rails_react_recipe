@@ -11,13 +11,14 @@ export default () => (
           A curated list of recipes for healthy, homemade happiness.
         </p>
         <hr className="my-4" />
-        <Link
-          to="/recipes"
-          className="btn btn-lg custom-button"
-          role="button"
-        >
-          View Recipes
-        </Link>
+        <div className="d-flex gap-3">
+          <Link to="/recipes" className="btn btn-lg custom-button" role="button">
+            View Recipes
+          </Link>
+          <Link to="/users/sign_in" className="btn btn-lg custom-button" role="button">
+            Login
+          </Link>
+        </div>
       </div>
     </div>
   </div>

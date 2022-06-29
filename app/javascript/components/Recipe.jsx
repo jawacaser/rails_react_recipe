@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default ({props}) => {
     const defaultState = { ingredients: "" }
@@ -102,9 +102,9 @@ export default ({props}) => {
                     </div>
                 </div>
                 <div className="text-center mt-3">
-                    <Link to="/recipes" className="btn btn-link">
-                        Back to recipes
-                    </Link>
+                    <button type="button" onClick={()=>navigate(-1)} className="btn btn-secondary w-25">
+                        Back
+                    </button>
                 </div>
             </div>
         </div>

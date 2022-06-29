@@ -37,6 +37,15 @@ class Api::V1::RecipesController < ApplicationController
     end
   end
 
+  def edit
+    @recipe = recipe
+    if authorized?
+      render json: recipe
+    else
+      render json: recipe.errors
+    end
+  end
+
   def update
     @recipe = recipe
     if authorized? && recipe.update(recipe_params)
@@ -58,7 +67,7 @@ class Api::V1::RecipesController < ApplicationController
   private
 
     def recipe_params
-      params.require(:recipe).permit(:name, :image, :ingredients, :instruction, :user)
+      params.require(:recipe).permit(:name, :image, :ingredients, :instruction, :user, :shared)
     end
 
     def recipe
@@ -70,7 +79,7 @@ class Api::V1::RecipesController < ApplicationController
     end
 
     def showcase
-      @showcase = Recipe.where(user_id: 2)
+      @showcase = Recipe.where(user_id: 2, shared: true)
     end
 
     def authorized?

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from './Form';
 
 
@@ -8,6 +8,8 @@ export default ({props}) => {
     const [ingredients, setIngredients] = useState("")
     const [instruction, setInstruction] = useState("")
     const [image, setImage] = useState("")
+    const [shared, setShared] = useState(false)
+
     const navigate = useNavigate();
     const defaultImg = `https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0`
 
@@ -22,6 +24,13 @@ export default ({props}) => {
             setImage(event.target.value)
         }
     }
+    useEffect(() => {
+        let check = document.getElementById('sharedSwitch')
+        check.addEventListener('change', function() {
+            setShared(check.checked)
+            console.log(check.checked)
+        })
+    }, [])
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -35,7 +44,8 @@ export default ({props}) => {
             name,
             ingredients,
             instruction: instruction.replace(/\n/g, "<br> <br>"),
-            image: image.length == 0 ? defaultImg : image
+            image: image.length == 0 ? defaultImg : image,
+            shared
         };
 
         const token = document.querySelector('meta[name="csrf-token"]').content;
