@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_164651) do
     t.text "instruction", null: false
     t.string "image", default: "https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0"
     t.integer "likes", default: 0
-    t.boolean "shared", null: false, default: false
+    t.boolean "shared", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

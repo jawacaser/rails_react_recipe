@@ -55,11 +55,11 @@ export default ({props}) => {
             setImage(value)
         }
     }
+
     useEffect(() => {
         let check = document.getElementById('sharedSwitch')
         check.addEventListener('change', function() {
             setShared(check.checked)
-            console.log(check.checked)
         })
     }, [])
 
@@ -76,7 +76,7 @@ export default ({props}) => {
             ingredients,
             instruction: instruction.replace(/\n/g, "<br> <br>"),
             image: image.length == 0 ? defaultImg : image,
-            shared
+            shared: shared
         };
 
         const token = document.querySelector('meta[name="csrf-token"]').content;
