@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Form from './Form';
-
 
 export default ({props}) => {
     const [name, setName] = useState("")
     const [ingredients, setIngredients] = useState("")
     const [instruction, setInstruction] = useState("")
     const [image, setImage] = useState("")
+    const [shared, setShared] = useState(false)
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -19,35 +19,49 @@ export default ({props}) => {
     }
 
     useEffect(() => {
-        const url = `/api/v1/show/${id}`
+        const url = `/api/v1/edit/${id}`
 
         fetch(url)
             .then(response => {
-                if (response.ok) {
+                 if (response.ok) {
                     return response.json();
                 }
                 throw new Error("Network response was not ok.");
             })
             .then(response => {
+                if (Object.keys(response).length === 0) {
+                    console.log('Bad request')
+                    navigate(-1)
+                }
                 setName(response.name)
                 setIngredients(response.ingredients)
                 setInstruction(stripHtmlEntities(response.instruction))
                 setImage(response.image != defaultImg ? response.image : "")
+                setShared(response.shared)
             })
             .catch(() => navigate(`/recipe/${id}`));
     }, [])
 
     function onChange(event) {
-        if (event.target.name == "name") {
-            setName(event.target.value)
-        } else if (event.target.name == "ingredients") {
-            setIngredients(event.target.value)
-        } else if (event.target.name == "instruction") {
-            setInstruction(event.target.value)
-        } else if (event.target.name == "image") {
-            setImage(event.target.value)
+        let e = event.target.name
+        let value = event.target.value
+        if (e == "name") {
+            setName(value)
+        } else if (e == "ingredients") {
+            setIngredients(value)
+        } else if (e == "instruction") {
+            setInstruction(value)
+        } else if (e == "image") {
+            setImage(value)
         }
     }
+    useEffect(() => {
+        let check = document.getElementById('sharedSwitch')
+        check.addEventListener('change', function() {
+            setShared(check.checked)
+            console.log(check.checked)
+        })
+    }, [])
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -61,7 +75,8 @@ export default ({props}) => {
             name,
             ingredients,
             instruction: instruction.replace(/\n/g, "<br> <br>"),
-            image: image.length == 0 ? defaultImg : image
+            image: image.length == 0 ? defaultImg : image,
+            shared
         };
 
         const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -106,7 +121,7 @@ export default ({props}) => {
             }
             throw new Error("Network response was not ok.");
         })
-        .then(() => navigate("/recipes"))
+        .then(() => navigate("/my-recipes"))
         .catch(error => console.log(error.message));
     }
 
@@ -124,6 +139,7 @@ export default ({props}) => {
                         ingredients={ingredients}
                         instruction={instruction}
                         image={image}
+                        shared={shared}
                     />
                     <div className="text-center">
                     <button type="button" className="btn btn-danger my-2 btn-sm" onClick={confirmBeforeDelete}>

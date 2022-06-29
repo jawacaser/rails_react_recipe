@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light mb-5 fixed-top" style="background-color: #293241;">
+  <div class="container-fluid">
+    <%= link_to "Let's Eat Well", root_path, class: "navbar-brand text-white" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="nav nav-pills mx-3">
+
+        <li class="nav-item">
+          <%= link_to('Featured Recipes', '/recipes', class: "nav-link text-white")%>
+        </li>
+        <li class="nav-item">
+          <% if user_signed_in? %>
+            <%= link_to('My Recipes', '/my-recipes', class: "nav-link text-white")%>
+          <% end %>
+        </li>
+        
+        <% flash.each do |key, value| %> 
+          <li class="nav-item">
+          <p class="text-white text-muted navbar-text"><%= value %></p>
+          </li>
+        <% end %>
+        <li class="nav-item">
+          <% if user_signed_in? %>
+            <%= link_to('Logout', destroy_user_session_path, 'data-turbo-method': :delete, class: "nav-link text-white") %>
+          <% else %>
+            <%= link_to('Login', new_user_session_path, class: "nav-link text-white") %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
