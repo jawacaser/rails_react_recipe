@@ -6,5 +6,10 @@ import App from "../components/App";
 $(document).on("turbo:load", () => {
   const container = document.body.appendChild(document.createElement("div"));
   const root = createRoot(container)
-  root.render(<App />)
+  // Temporarily fixes odd re-rendering of root after visiting login page
+  // remove conditionally 'if' once wiring frontend components to devise is completed
+  if (!document.getElementById('root')){
+    root.render(<App />)
+  }
+
 });

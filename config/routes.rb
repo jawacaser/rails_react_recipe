@@ -11,9 +11,18 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, :controllers => {
-    registrations: 'registrations'
-  }
+  devise_for :users, controllers: {
+    registrations: 'registrations',
+    sessions: 'sessions' },
+    :path_names => {
+      :sign_in => 'login',
+      :sign_out => 'logout',
+      :password => 'password',
+      :confirmation => 'confirmation',
+      :unlock => 'unlock',
+      :registration => 'register',
+      :sign_up => 'new'
+    }
   
   # Exceptions to authenticated root include the homepage, showcase page, and any shared recipes (public)
   authenticated :user do
@@ -22,5 +31,6 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get '/*path' => 'homepage#index'
+  get '*path' => 'homepage#index'
 end
+
