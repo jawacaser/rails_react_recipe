@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RecipeCards from './RecipeCards';
 
 export default ({props}) => {
     const [recipes, setRecipes] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = "/api/v1/recipes/myindex";
-        fetch(url)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Network response was not ok.");
-            })
-            .then(response => {
-                setRecipes(response)})
-            .catch(() => Navigate("/"));
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                "X-CSRF-Token": token,
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => {
+            setRecipes(response)})
+        .catch(() => navigate("/"));
     }, []);
 
     return(

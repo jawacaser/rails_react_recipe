@@ -4,13 +4,15 @@ class Api::V1::RecipesController < ApplicationController
   def index
     # recipe = Recipe.all.order(created_at: :desc)
     @showcase = showcase
-    recipe = showcase.all.order(created_at: :desc) 
-    render json: recipe
+    recipes = showcase.all.order(created_at: :desc) 
+    render json: recipes
   end
 
   def myindex
-      recipe = current_user.recipes.all.order(created_at: :desc)
-      render json: recipe
+      recipes = current_user.recipes.all.order(created_at: :desc)
+      if recipes
+      render json: recipes
+      end
   end
 
   def create

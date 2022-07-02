@@ -13,9 +13,18 @@ class SessionsController < Devise::SessionsController
         end
     end
   
+    #
+    # def destroy
+    #     sign_out(@user)
+    #     render :json=> {:success=>true}
+    # end
+
+
+    # https://makandracards.com/makandra/53562-devise-invalidating-all-sessions-for-a-user
+    # Makes client cookie invalid (resulted in logout bug)
     def destroy
-        sign_out(@user)
-        render :json=> {:success=>true}
+        current_user.invalidate_all_sessions!
+        super
     end
   
   

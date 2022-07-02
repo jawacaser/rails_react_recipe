@@ -9,9 +9,11 @@ import Contact from "./Contact";
 import MyRecipes from "./MyRecipes";
 import NotFound from "./NotFound";
 import Login from "./Login";
+import Navbar from "./Navbar";
 
 export default (
   <Router>
+    <Navbar />
     <Routes>
       <Route path="/" exact element={<Home />} />
       <Route path="/users/login" exact element={<Login />} />

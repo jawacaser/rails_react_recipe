@@ -17,14 +17,19 @@ export default (props) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-      
-    let session = {
-      email,
-      password,
-      "remember_me": remember
-    }
     const url = '/users/login'
     const token = document.querySelector('meta[name="csrf-token"]').content;
+    let session = {
+      "authenticity_token": token,
+      email,
+      password,
+      "remember_me": remember,
+      "commit": "Log in"
+    }
+    let user = {
+      email,
+      password
+    }
     await fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -32,7 +37,7 @@ export default (props) => {
             "X-CSRF-Token": token,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({user:session})
+        body: JSON.stringify({user, session})
     })
     .then(response => {
         if (response.ok) {
@@ -40,7 +45,10 @@ export default (props) => {
         }
         throw new Error("Network response was not ok.");
     })
-    .then(response => navigate(`/my-recipes`))
+    .then(response => {    
+        sessionStorage.setItem('username', JSON.stringify(response.username))  
+        navigate(`/my-recipes`)
+    })
     .catch(error => console.log(error.message));
   }
 
