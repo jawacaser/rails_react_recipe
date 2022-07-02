@@ -52,12 +52,11 @@ export default (props) => {
             <nav className="navbar navbar-expand-lg navbar-light mb-5 fixed-top" style={{'backgroundColor': '#293241'}}>
                 <div className="container-fluid">
                     <a href="/" className="navbar-brand text-white">Let's Eat Well</a>
-    {/* <%= link_to "Let's Eat Well", root_path, class: "navbar-brand text-white" %> */}
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>     
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse" aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>   
                     </button>
                     { isAuth ? <Greeting username={username} /> : null }
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <div className="collapse navbar-collapse justify-content-end" id="nav-collapse">
                         <NavButtonLinks isAuth={isAuth} logout={logout} />
                     
                     {/* <% flash.each do |key, value| %> 

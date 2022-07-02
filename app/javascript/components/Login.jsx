@@ -99,11 +99,11 @@ export default (props) => {
           </button>
         </div>
         <p className="forgot-password text-right">
-          <a href="#">Sign up</a>
+          Sign up disabled temporarily.Play around with: email: user-1@example.com // password: password
         </p>
-        <p className="forgot-password text-right">
-          <a href="#">Forgot password?</a>
-        </p>
+        {/* <p className="forgot-password text-right">
+          <a href="#" disabled>Forgot password?</a>
+        </p> */}
       </form>
     </div>
   )
