@@ -8,25 +8,15 @@ export default ToastContext;
 export function ToastContextProvider({ children }) {
     const [toasts, setToasts] = useState([]);
 
-    // useEffect(() => {
-    //     if (toasts.length > 0) {
-    //         const timer = setTimeout(
-    //             () => setToasts(toasts => toasts.slice(1)),
-    //             8*1000
-    //         );
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, [toasts]);
-
-    function closeToast() {
-        console.log("clicked")
-
-        let myToastEl = document.getElementById('toast-id')
-        console.log(myToastEl)
-        let myToast = Toast.getInstance(myToastEl)
-        console.log(myToast)
-        myToast.dispose();
-    }
+    useEffect(() => {
+        if (toasts.length > 0) {
+            const timer = setTimeout(
+                () => setToasts(toasts => toasts.slice(1)),
+                30*1000
+            );
+            return () => clearTimeout(timer);
+        }
+    }, [toasts]);
 
 
     const addToast = useCallback(
@@ -40,13 +30,13 @@ export function ToastContextProvider({ children }) {
         <ToastContext.Provider value={addToast}>
             {children}
             <div className="toasts-wrapper bottom-0 start-50 translate-middle-x mb-5" style={{position: "absolute"}}>
-                {toasts.map(toast => (
-                    <div id="toast-id" className="toast bg_secondary-color text-white d-flex" role="alert" aria-live="assertive" aria-atomic="true" key={toast}>
+                {toasts.map((toast, index) => (
+                    <div id={'toast-id'+index} className="toast bg_secondary-color text-white d-flex show fade" role="alert" aria-live="assertive" aria-atomic="true" key={index}>
                         <div className="toast-body">
                             <strong className="me-auto">Notice : </strong>
                             {toast}
                         </div>
-                        <button id="toast-btn" onClick={closeToast} type="button" className="btn-close btn-close-white me-1 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        <button id={'toast-btn'+index} key={index} type="button" className="btn-close btn-close-white me-1 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                 ))}
             </div>

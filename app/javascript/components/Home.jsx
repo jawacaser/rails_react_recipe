@@ -15,9 +15,6 @@ export default () => (
           <Link to="/recipes" className="btn btn-lg custom-button" role="button">
             View Recipes
           </Link>
-          {/* <Link to="/users/sign_in" className="btn btn-lg custom-button" role="button">
-            Login
-          </Link> THIS LINK CURRENTLY DOES NOT LOAD PROPERLY. LOOK INTO REACT-DOM-SERVER */}
         </div>
       </div>
     </div>
