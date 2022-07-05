@@ -4,13 +4,15 @@ class Api::V1::RecipesController < ApplicationController
   def index
     # recipe = Recipe.all.order(created_at: :desc)
     @showcase = showcase
-    recipe = showcase.all.order(created_at: :desc) 
-    render json: recipe
+    recipes = showcase.all.order(created_at: :desc) 
+    render json: recipes
   end
 
   def myindex
-      recipe = current_user.recipes.all.order(created_at: :desc)
-      render json: recipe
+      recipes = current_user.recipes.all.order(created_at: :desc)
+      if recipes
+      render json: recipes
+      end
   end
 
   def create
@@ -28,10 +30,12 @@ class Api::V1::RecipesController < ApplicationController
 
   def show
     @recipe = recipe
-    if recipe.shared || recipe.user_id == 2
-      render json: recipe
-    elsif authorized?
-      render json: recipe
+    if recipe
+      if authorized? || recipe.shared
+        render json: recipe
+      else
+        handle_unauthorized
+      end
     else
       render json: recipe.errors
     end
@@ -40,19 +44,26 @@ class Api::V1::RecipesController < ApplicationController
   def edit
     @recipe = recipe
     if authorized?
-      render json: recipe
+      if recipe
+        render json: recipe
+      else
+        render json: recipe.errors
+      end
     else
-      render json: recipe.errors
+      handle_unauthorized
     end
   end
 
   def update
     @recipe = recipe
-    if authorized? && recipe.update(recipe_params)
-    #if recipe.update(recipe_params)
-      render json: recipe
+    if authorized?
+      if recipe.update(recipe_params)
+        render json: recipe
+      else
+        render json: recipe.errors
+      end
     else
-      render json: recipe.errors
+      handle_unauthorized
     end
   end
 
@@ -61,6 +72,8 @@ class Api::V1::RecipesController < ApplicationController
     if authorized?
       recipe&.destroy
       render json: { message: 'Recipe deleted' }
+    else
+      handle_unauthorized
     end
   end
 
