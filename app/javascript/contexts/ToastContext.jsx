@@ -29,9 +29,9 @@ export function ToastContextProvider({ children }) {
     return (
         <ToastContext.Provider value={addToast}>
             {children}
-            <div className="toasts-wrapper bottom-0 start-50 translate-middle-x mb-5" style={{position: "absolute"}}>
+            <div className="toasts-wrapper top-0 end-0 mt-5 position-fixed">
                 {toasts.map((toast, index) => (
-                    <div id={'toast-id'+index} className="toast bg_secondary-color text-white d-flex show fade" role="alert" aria-live="assertive" aria-atomic="true" key={index}>
+                    <div id={'toast-id'+index} className="toast border border-light bg_secondary-color text-white d-flex show fade mt-3" role="alert" aria-live="assertive" aria-atomic="true" key={index}>
                         <div className="toast-body">
                             <strong className="me-auto">Notice : </strong>
                             {toast}

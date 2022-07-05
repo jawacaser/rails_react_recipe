@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
+import useToastContext from '../hooks/useToastContext';
 
 
 export default ({props}) => {
@@ -11,6 +12,7 @@ export default ({props}) => {
     const [shared, setShared] = useState(false)
 
     const navigate = useNavigate();
+    const addToast = useToastContext();
     const defaultImg = `https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0`
 
     function onChange(event) {
@@ -61,9 +63,12 @@ export default ({props}) => {
             if (response.ok) {
                 return response.json();
             }
+            addToast("Uh oh, something went wrong...")
             throw new Error("Network response was not ok.");
         })
-        .then(response => navigate(`/recipe/${response.id}`))
+        .then(response => {
+            addToast("Recipe Created, Woohoo!")
+            navigate(`/recipe/${response.id}`)})
         .catch(error => console.log(error.message));
     }
 
@@ -71,7 +76,7 @@ export default ({props}) => {
         <div className="container my-4">
             <div className="row">
                 <div className="col-sm-12 col-lg-6 offset-lg-3">
-                    <h1 className="font-weight-normal mb-3 text-center">
+                    <h1 className="fw-normal mb-3 text-center">
                         Add a new recipe to your collection.
                     </h1>
                     <Form onSubmit={onSubmit} onChange={onChange} />

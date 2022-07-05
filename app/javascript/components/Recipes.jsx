@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import RecipeCards from './RecipeCards';
-import useToastContext from '../hooks/useToastContext';
+
+
 
 export default ({props}) => {
     const [recipes, setRecipes] = useState([])
     const backgroundImg = "https://lh3.googleusercontent.com/pw/AM-JKLXF6NK9eM4qZ_cdMQnUY3KxMDvdiPYj9hslTMJdOmZDp47A2wwdz3aZVKkavtuvIydVSY_w8fQNOA0Z2pGoqFTqEoy78x7fjjHXOUY1Q3RQMYdCr7-BlyaaHoBsJiaLwQC8SsfzEhCi_jVmBjWRqu4=w1873-h1240-no?authuser=0"
-    const addToast = useToastContext();
+
     useEffect(() => {
-        addToast("This is my test toast")
         const url = "/api/v1/recipes/index";
         fetch(url)
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 }
+                addToast("Uh oh, something went wrong...")
                 throw new Error("Network response was not ok.");
             })
             .then(response => {
@@ -33,8 +34,8 @@ export default ({props}) => {
                         Short description about Let's Eat Well, etc etc etc.
                         This app is built with Rails 7 and React. I have implemented
                         login functionality using Devise. Work in progress!
-                        TODO: Make login prettier, Fix navbar collapse, Hide buttons if out of user scope, Serve better error notices
-                        (look into React-Router-Server possibly for many of these fixes)
+                        TODO: Wire up Registration, Hide buttons if out of user scope, 
+                        implement 'like' button, fix some 'Back' button routing bugs
                     </p>
                 </div>
             </section>

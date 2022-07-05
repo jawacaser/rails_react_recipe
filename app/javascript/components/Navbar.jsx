@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavButtonLinks } from './NavButtonLinks';
-//import useToastContext from '../hooks/useToastContext';
+import useToastContext from '../hooks/useToastContext';
 
 export default (props) => {
     let user;
     const [isAuth, setIsAuth] = useState(user ? true : false)
     const [username, setUsername] = useState(user)
     const navigate = useNavigate();
-    //const addToast = useToastContext();
+    const addToast = useToastContext();
 
     useEffect(()=> {
         if (sessionStorage.getItem('username') != undefined) {
@@ -39,11 +39,14 @@ export default (props) => {
         .then(response => {
             if (response.status === 204) {
                 sessionStorage.clear()
-                navigate(`/`)
-                //addToast("You have signed out successfully.")
+                navigate('/')
+                addToast("You have signed out successfully.")
             };
         })
-        .catch(error => {throw new Error("Network response was not ok.")});
+        .catch(error => {
+            addToast("Uh oh, something went wrong...")
+            throw new Error("Network response was not ok.")
+        });
     }
 
     return (
