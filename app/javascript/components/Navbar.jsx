@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { NavButtonLinks, LoginButton, LogoutButton, MyRecipesLink, FeaturedLink } from './NavButtonLinks';
+import { useNavigate } from 'react-router-dom';
+import { NavButtonLinks } from './NavButtonLinks';
+//import useToastContext from '../hooks/useToastContext';
 
 export default (props) => {
     let user;
-    if (sessionStorage.getItem('username') != undefined) {
-        user = JSON.parse(sessionStorage.getItem('username'))
-    } else {
-        user = ''
-    }
-
     const [isAuth, setIsAuth] = useState(user ? true : false)
     const [username, setUsername] = useState(user)
     const navigate = useNavigate();
+    //const addToast = useToastContext();
 
     useEffect(()=> {
+        if (sessionStorage.getItem('username') != undefined) {
+            user = JSON.parse(sessionStorage.getItem('username'))
+        } else {
+            user = ''
+        }
         setIsAuth(user ? true : false)
         setUsername(user ? user : '')
     }, [user, logout])
@@ -25,7 +26,6 @@ export default (props) => {
 
     async function logout(event) {
         event.preventDefault();  
-        let remove = sessionStorage.getItem('username')
         const url = '/users/logout'
         const token = document.querySelector('meta[name="csrf-token"]').content;
         await fetch(url, {
@@ -37,14 +37,13 @@ export default (props) => {
             }
         })
         .then(response => {
-            if (response.ok) {
-                sessionStorage.removeItem('username', remove)
-                return response.json();
-            }
-            throw new Error("Network response was not ok.");
+            if (response.status === 204) {
+                sessionStorage.clear()
+                navigate(`/`)
+                //addToast("You have signed out successfully.")
+            };
         })
-        .then(response => navigate(`/`))
-        .catch(error => console.log(error.message));
+        .catch(error => {throw new Error("Network response was not ok.")});
     }
 
     return (
@@ -58,13 +57,6 @@ export default (props) => {
                     { isAuth ? <Greeting username={username} /> : null }
                     <div className="collapse navbar-collapse justify-content-end" id="nav-collapse">
                         <NavButtonLinks isAuth={isAuth} logout={logout} />
-                    
-                    {/* <% flash.each do |key, value| %> 
-                    <li class="nav-item">
-                    <p class="text-white text-muted navbar-text"><%= value %></p>
-                    </li>
-                    <% end %> */}
-        
                     </div>
                 </div>
             </nav>

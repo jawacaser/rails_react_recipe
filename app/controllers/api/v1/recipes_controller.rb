@@ -9,10 +9,10 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def myindex
-      recipes = current_user.recipes.all.order(created_at: :desc)
-      if recipes
+    recipes = current_user.recipes.all.order(created_at: :desc)
+    if recipes
       render json: recipes
-      end
+    end
   end
 
   def create
