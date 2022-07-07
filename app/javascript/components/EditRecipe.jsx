@@ -22,11 +22,7 @@ export default ({props}) => {
 
     useEffect(() => {
         const url = `/api/v1/edit/${id}`
-        // try {
-            
-        // } catch (error) {
-            
-        // }
+        
         fetch(url)
             .then(response => {
                  if (response.ok) {

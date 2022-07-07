@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 export default (props) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(0)
+
+  const { loginUser } = useContext(UserContext)
   
   function onChange(e) {
     if (e.target.name == 'email') {
@@ -46,7 +49,10 @@ export default (props) => {
         addToast("Uh oh, something went wrong...")
         throw new Error("Network response was not ok.");
     })
-    .then(response => {    
+    .then(response => {
+        JSON.stringify(response);
+        console.log(response)
+        loginUser({ id: response.id, role: response.role, username: response.username })
         sessionStorage.setItem('username', JSON.stringify(response.username))  
         navigate(`/my-recipes`)
     })

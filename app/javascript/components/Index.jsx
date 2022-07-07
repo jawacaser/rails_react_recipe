@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContextProvider } from "../contexts/ToastContext";
+import { UserContextProvider } from "../contexts/UserContext";
 import Home from "./Home";
 import Recipes from "./Recipes";
 import Recipe from "./Recipe";
@@ -15,6 +16,7 @@ import Navbar from "./Navbar";
 export default (
   <Router>
     <ToastContextProvider>
+      <UserContextProvider>
       <Navbar />
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -27,6 +29,7 @@ export default (
           <Route path="/contact" exact element={<Contact />} />
           <Route path="*" exact element={<NotFound />} />
         </Routes>
+      </UserContextProvider>
     </ToastContextProvider>
   </Router>
 );

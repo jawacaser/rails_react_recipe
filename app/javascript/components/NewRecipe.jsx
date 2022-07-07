@@ -68,7 +68,8 @@ export default ({props}) => {
         })
         .then(response => {
             addToast("Recipe Created, Woohoo!")
-            navigate(`/recipe/${response.id}`)})
+            navigate(`/recipe/${response.id}`)
+        })
         .catch(error => console.log(error.message));
     }
 
