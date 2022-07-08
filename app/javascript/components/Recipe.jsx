@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import LikeButtons from './LikeButtons'
 
 export default ({props}) => {
     const defaultState = { ingredients: "" }
@@ -47,11 +48,11 @@ export default ({props}) => {
     const recipeInstruction = addHtmlEntities(oneRecipe.instruction)
     
     const EditBtn = () => (
-        <div className="col-sm-12 col-lg-2 text-center">
+        // <div className="col-sm-12 col-lg-2 text-center">
             <button type="button" className="btn custom-button mx-2" onClick={()=>navigate(`/edit/${id}`)}>
                 Edit Recipe
             </button>
-        </div>
+        // </div>
     )
     
     return (
@@ -79,7 +80,13 @@ export default ({props}) => {
                         }}
                         />
                     </div>
-                    { currentUser.id == oneRecipe.user_id ? <EditBtn /> : null }
+                    <div className="col-sm-12 col-lg-2 text-center">
+                        <hr className="my-3" />
+                        { oneRecipe.shared ? <p className="badge primary-color rounded-pill text-muted">Shared recipe.</p> : <p>Private recipe.</p>}
+                        { currentUser.id && oneRecipe.shared ? <LikeButtons /> : null }
+                        { currentUser.id == oneRecipe.user_id ? <EditBtn /> : null }
+                        <hr className="mt-4" />
+                    </div>
                 </div>
                 <div className="text-center mt-3">
                     <button type="button" onClick={()=>navigate(-1)} className="btn btn-secondary w-25">

@@ -5,7 +5,6 @@ class CreateRecipes < ActiveRecord::Migration[7.0]
       t.text :ingredients, null: false
       t.text :instruction, null: false
       t.string :image, default: 'https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0'
-      t.integer :likes, default: 0
       t.boolean :shared, default: false
 
       # t.belongs_to :user, foreign_key: true

@@ -10,16 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_27_164651) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_07_164843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_likes_on_recipe_id"
+    t.index ["user_id", "recipe_id"], name: "index_likes_on_user_id_and_recipe_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
 
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "ingredients", null: false
     t.text "instruction", null: false
     t.string "image", default: "https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0"
-    t.integer "likes", default: 0
     t.boolean "shared", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,5 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_164651) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "likes", "recipes"
+  add_foreign_key "likes", "users"
   add_foreign_key "recipes", "users"
 end

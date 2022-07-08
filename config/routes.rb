@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       :sign_up => 'new'
     }
   
+  resources :likes, only: [:show, :create, :destroy]
+  
   # Exceptions to authenticated root include the homepage, showcase page, and any shared recipes (public)
   authenticated :user do
     root 'homepage#index', as: :authenticated_root

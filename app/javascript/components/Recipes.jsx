@@ -37,8 +37,9 @@ export default ({props}) => {
                         Short description about Let's Eat Well, etc etc etc.
                         This app is built with Rails 7 and React. I have implemented
                         login functionality using Devise. Work in progress!
-                        TODO: Wire up Registration, change some hardcoded backend, implement 'like' button,
-                        "share to social media" buttons?, prettier contact page
+                        TODO: Wire up Registration, change some hardcoded backend,
+                        "share to social media" buttons?, prettier contact page,
+                        create a shared index page (a la pinterest)
                         
                         id: {currentUser.id}, role: {currentUser.role}, username: {currentUser.username}
                     </p>
