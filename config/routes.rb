@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     registrations: 'registrations',
-    sessions: 'sessions' },
+    sessions: 'users/sessions' },
     :path_names => {
       :sign_in => 'login',
       :sign_out => 'logout',
@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       :registration => 'register',
       :sign_up => 'new'
     }
+  
+  resources :likes, only: [:show, :create, :destroy]
   
   # Exceptions to authenticated root include the homepage, showcase page, and any shared recipes (public)
   authenticated :user do

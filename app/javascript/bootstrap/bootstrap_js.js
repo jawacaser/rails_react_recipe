@@ -1,4 +1,4 @@
-import 'bootstrap'
+import 'bootstrap/dist/js/bootstrap'
 
 $(function () {
     $('[data-bs-toggle="collapse"]').collapse()

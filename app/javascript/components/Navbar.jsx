@@ -1,50 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { NavButtonLinks, LoginButton, LogoutButton, MyRecipesLink, FeaturedLink } from './NavButtonLinks';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavButtonLinks } from './NavButtonLinks';
+import UserContext from '../contexts/UserContext';
 
 export default (props) => {
-    let user;
-    if (sessionStorage.getItem('username') != undefined) {
-        user = JSON.parse(sessionStorage.getItem('username'))
-    } else {
-        user = ''
-    }
-
+    const { currentUser, logoutUser } = useContext(UserContext)
+    let user = currentUser.username;
     const [isAuth, setIsAuth] = useState(user ? true : false)
-    const [username, setUsername] = useState(user)
-    const navigate = useNavigate();
 
     useEffect(()=> {
         setIsAuth(user ? true : false)
-        setUsername(user ? user : '')
-    }, [user, logout])
+        }, [currentUser, logoutUser]
+    )
 
     function Greeting(props) {
-        return (<span className="text-white">Welcome, {props.username}!</span>)
-    }
-
-    async function logout(event) {
-        event.preventDefault();  
-        let remove = sessionStorage.getItem('username')
-        const url = '/users/logout'
-        const token = document.querySelector('meta[name="csrf-token"]').content;
-        await fetch(url, {
-            method: 'DELETE',
-            credentials: 'same-origin',
-            headers: {
-                "X-CSRF-Token": token,
-                "Content-Type": "application/json"
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                sessionStorage.removeItem('username', remove)
-                return response.json();
-            }
-            throw new Error("Network response was not ok.");
-        })
-        .then(response => navigate(`/`))
-        .catch(error => console.log(error.message));
+        return (<span className="text-white">Welcome, {user}!</span>)
     }
 
     return (
@@ -55,16 +24,9 @@ export default (props) => {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse" aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>   
                     </button>
-                    { isAuth ? <Greeting username={username} /> : null }
+                    { isAuth ? <Greeting user={currentUser.username} /> : null }
                     <div className="collapse navbar-collapse justify-content-end" id="nav-collapse">
-                        <NavButtonLinks isAuth={isAuth} logout={logout} />
-                    
-                    {/* <% flash.each do |key, value| %> 
-                    <li class="nav-item">
-                    <p class="text-white text-muted navbar-text"><%= value %></p>
-                    </li>
-                    <% end %> */}
-        
+                        <NavButtonLinks isAuth={isAuth} />
                     </div>
                 </div>
             </nav>

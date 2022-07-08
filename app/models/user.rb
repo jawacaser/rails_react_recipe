@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   after_initialize :set_default_role, :if => :new_record?
 
+  # Destroy all recipes belonging to user upon Destroying user
+  has_many :recipes, dependent: :destroy
+  has_many :likes
+
   # Method of terminating session while client cookie persists
   # https://makandracards.com/makandra/53562-devise-invalidating-all-sessions-for-a-user
   def authenticatable_salt
@@ -22,6 +26,4 @@ class User < ApplicationRecord
     self.role ||= :user
   end
 
-  # Destroy all recipes belonging to user upon Destroying user
-  has_many :recipes, dependent: :destroy
 end

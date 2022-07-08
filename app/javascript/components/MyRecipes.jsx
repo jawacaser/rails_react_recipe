@@ -21,6 +21,7 @@ export default ({props}) => {
             if (response.ok) {
                 return response.json();
             }
+            addToast("Uh oh, something went wrong...")
             throw new Error("Network response was not ok.");
         })
         .then(response => {

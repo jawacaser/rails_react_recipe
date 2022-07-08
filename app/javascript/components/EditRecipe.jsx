@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Form from './Form';
+import useToastContext from '../hooks/useToastContext';
 
 export default ({props}) => {
     const [name, setName] = useState("")
@@ -11,6 +12,7 @@ export default ({props}) => {
 
     const { id } = useParams();
     const navigate = useNavigate();
+    const addToast = useToastContext();
     const defaultImg = `https://lh3.googleusercontent.com/pw/AM-JKLWzpHEwkBfYDRJwjiLKXVC16AaGjeaCFxN7a1KsiWQqouGKcWR81zvVLEheFYaA35JO3Z9zc-FZlfVmSgYOS38KTz45HwiFhxIDCFiQVeqVrig1lebaATH7CUmgXpMl6ytR1apV0xSHqXd6as5LLcI=w828-h315-no?authuser=0`
 
     function stripHtmlEntities(str) {
@@ -20,7 +22,7 @@ export default ({props}) => {
 
     useEffect(() => {
         const url = `/api/v1/edit/${id}`
-
+        
         fetch(url)
             .then(response => {
                  if (response.ok) {
@@ -94,14 +96,10 @@ export default ({props}) => {
             }
             throw new Error("Network response was not ok.");
         })
-        .then(response => navigate(`/recipe/${response.id}`))
+        .then(response => {
+            addToast("Recipe Saved!")
+            navigate(`/recipe/${response.id}`)})
         .catch(error => console.log(error.message));
-    }
-
-    function confirmBeforeDelete() {
-        if (window.confirm('Are you sure you want to delete this recipe?')) {
-            deleteRecipe()
-        }
     }
 
     async function deleteRecipe() {
@@ -119,11 +117,37 @@ export default ({props}) => {
             if (response.ok) {
                 return response.json();
             }
+            addToast("Uh oh, something went wrong...")
             throw new Error("Network response was not ok.");
         })
-        .then(() => navigate("/my-recipes"))
+        .then(() => {
+            addToast("Recipe Deleted!")
+            navigate("/my-recipes")})
         .catch(error => console.log(error.message));
     }
+
+    const DeleteModal = () => {
+        return(
+        <div className="modal fade" id="delete-modal" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="modal-title">Notice!</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        Are you sure you want to delete this recipe?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onClick={deleteRecipe} className="btn btn-danger" data-bs-dismiss="modal">Confirm Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
 
     return (
         <div className="container my-4">
@@ -142,7 +166,8 @@ export default ({props}) => {
                         shared={shared}
                     />
                     <div className="text-center">
-                    <button type="button" className="btn btn-danger my-2 btn-sm" onClick={confirmBeforeDelete}>
+                    <DeleteModal />
+                    <button type="button" className="btn btn-danger my-2 btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal">
                             Delete Recipe
                     </button>
                     </div>
