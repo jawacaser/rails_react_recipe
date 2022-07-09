@@ -23,8 +23,11 @@ class Users::SessionsController < ::Devise::SessionsController
     else
         invalid_login_attempt
     end
-end
+  end
 
+  def show
+    render json: current_user.to_json
+  end
   # DELETE /users/logout
   # def destroy
   #   super

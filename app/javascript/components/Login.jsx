@@ -52,9 +52,9 @@ export default (props) => {
     .then(response => {
         if (!response) { return }
         JSON.stringify(response);
-        console.log(response)
+        console.log('login: '+ response)
         loginUser({ id: response.id, role: response.role, username: response.username })
-        navigate('/my-recipes')
+        navigate('/my-recipes', { replace: true })
     })
     .catch(error => console.log(error.message));
   }
@@ -66,7 +66,7 @@ export default (props) => {
         <div className="container bg-light" style={{maxWidth: "500px"}}>
           <form onSubmit={handleSubmit} className="p-2 bg-white">
             <h3 className="text-center">Sign In</h3>
-            <div className="mb-3 form-floating">              
+            <div className="mb-3 form-floating form-group">              
               <input
                 required
                 id="email"
@@ -78,7 +78,7 @@ export default (props) => {
               />
               <label className="form-label">Email address</label>
             </div>
-            <div className="mb-3 form-floating">             
+            <div className="mb-3 form-floating form-group">             
               <input
                 required
                 id="password"
@@ -103,18 +103,20 @@ export default (props) => {
                   onChange={()=> remember ? setRemember(false) : setRemember(true)}
                   className="custom-control-input"
                 />
-                <label className="custom-control-label" htmlFor="remember">
+                <label className="custom-control-label mx-2" htmlFor="remember">
                   Remember me
                 </label>
               </div>
             </div>
             <div className="d-grid">
-              <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={email === '' || password === ''}>
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
             <p className="forgot-password text-right">
-              Signup disabled temporarily. Play around with: {<br/>}email: user-1@example.com {<br/>} password: password
+              Signup disabled temporarily. Play around with: 
+              {<br/>}email: user-1@example.com || user-2@example.com
+              {<br/>} password: password
             </p>
           </form>
         </div>
