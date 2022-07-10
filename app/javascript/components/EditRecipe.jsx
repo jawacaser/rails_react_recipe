@@ -25,16 +25,14 @@ export default ({props}) => {
         
         fetch(url)
             .then(response => {
-                 if (response.ok) {
+                if (response.status === 401) {
+                    navigate(-1, { replace: true })
+                } else if (response.ok) {
                     return response.json();
                 }
                 throw new Error("Network response was not ok.");
             })
             .then(response => {
-                if (Object.keys(response).length === 0) {
-                    console.log('Bad request')
-                    navigate(-1)
-                }
                 setName(response.name)
                 setIngredients(response.ingredients)
                 setInstruction(stripHtmlEntities(response.instruction))
@@ -139,8 +137,8 @@ export default ({props}) => {
                         Are you sure you want to delete this recipe?
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onClick={deleteRecipe} className="btn btn-danger" data-bs-dismiss="modal">Confirm Delete</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>

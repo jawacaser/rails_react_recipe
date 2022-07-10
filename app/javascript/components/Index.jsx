@@ -20,7 +20,7 @@ export default (
       <Navbar />
         <Routes>
           <Route path="/" exact element={<Home />} />
-          <Route path="/users/login" exact element={<Login />} />
+          <Route path="/login" exact element={<Login />} />
           <Route path="/recipes" exact element={<Recipes />} />
           <Route path="/my-recipes" exact element={<MyRecipes />} />
           <Route path="/recipe/:id" exact element={<Recipe />} />

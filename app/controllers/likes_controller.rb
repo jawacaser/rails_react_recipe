@@ -17,16 +17,13 @@ class LikesController < ApplicationController
         if !@like.save
             render json: { message: 'Error saving like' }
         end
-        # redirect_to @like.recipe  <--- need this??
     end
 
     def destroy
         @like = current_user.likes.find_by(recipe_id: params[:id])
-        # recipe = @like.recipe
         if !!@like
             @like.destroy
         end
-        # redirect_to recipe <--- need this??
     end
 
     private

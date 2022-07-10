@@ -35,7 +35,7 @@ const MyRecipesLink =()=> {
 const LoginButton =()=> {
     return(
         <li className="nav-item">
-            <Link to="/users/login" className="nav-link text-white">Login</Link>
+            <Link to="/login" className="nav-link text-white">Login</Link>
         </li>)
 }
 const LogoutButton =(props)=> {

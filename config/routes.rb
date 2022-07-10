@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_scope :user do
+    # Request sent to backend on refresh of app to persist user data for frontend
+    get '/user', to: 'users/sessions#show'
+  end
+  
   devise_for :users, controllers: {
     registrations: 'registrations',
     sessions: 'users/sessions' },
@@ -25,7 +30,6 @@ Rails.application.routes.draw do
     }
   
   resources :likes, only: [:show, :create, :destroy]
-  
   # Exceptions to authenticated root include the homepage, showcase page, and any shared recipes (public)
   authenticated :user do
     root 'homepage#index', as: :authenticated_root

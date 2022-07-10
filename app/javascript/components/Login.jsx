@@ -1,21 +1,19 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import useToastContext from '../hooks/useToastContext';
 
 export default (props) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(0)
-
+  const addToast = useToastContext();
   const { loginUser } = useContext(UserContext)
-  
-  function onChange(e) {
-    if (e.target.name == 'email') {
-      setEmail(e.target.value)
-    } else if (e.target.name == 'password') {
-      setPassword(e.target.value)
-    }
+
+  function badCredentials() {
+    const el = document.getElementById('bad-credentials');
+    el.style.display = 'block'
   }
 
   async function handleSubmit(event) {
@@ -45,16 +43,17 @@ export default (props) => {
     .then(response => {
         if (response.ok) {
             return response.json();
+        } else if (response.status === 422) {
+            return badCredentials();
         }
         addToast("Uh oh, something went wrong...")
         throw new Error("Network response was not ok.");
     })
     .then(response => {
+        if (!response) { return }
         JSON.stringify(response);
-        console.log(response)
         loginUser({ id: response.id, role: response.role, username: response.username })
-        sessionStorage.setItem('username', JSON.stringify(response.username))  
-        navigate(`/my-recipes`)
+        navigate('/my-recipes', { replace: true })
     })
     .catch(error => console.log(error.message));
   }
@@ -66,28 +65,33 @@ export default (props) => {
         <div className="container bg-light" style={{maxWidth: "500px"}}>
           <form onSubmit={handleSubmit} className="p-2 bg-white">
             <h3 className="text-center">Sign In</h3>
-            <div className="mb-3">
-              <label>Email address</label>
+            <div className="mb-3 form-floating form-group">              
               <input
+                required
                 id="email"
                 name="email"
                 type="email"
-                onChange={onChange}
+                onChange={(e) => setEmail(e.target.value)}
                 className="form-control"
                 placeholder="Enter email"
               />
+              <label className="form-label">Email address</label>
             </div>
-            <div className="mb-3">
-              <label>Password</label>
+            <div className="mb-3 form-floating form-group">             
               <input
+                required
                 id="password"
                 name="password"
                 type="password"
-                onChange={onChange}
+                onChange={(e) => setPassword(e.target.value)}
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="Enter password"                
               />
+              <label className="form-label">Password</label>
             </div>
+            <p id="bad-credentials" className="text-danger fst-italic" style={{display: 'none'}}>
+              Invalid login attempt
+            </p>
             <div className="mb-3">
               <div className="custom-control custom-checkbox">
                 <input
@@ -98,22 +102,21 @@ export default (props) => {
                   onChange={()=> remember ? setRemember(false) : setRemember(true)}
                   className="custom-control-input"
                 />
-                <label className="custom-control-label" htmlFor="remember">
+                <label className="custom-control-label mx-2" htmlFor="remember">
                   Remember me
                 </label>
               </div>
             </div>
             <div className="d-grid">
-              <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
             <p className="forgot-password text-right">
-              Sign up disabled temporarily.Play around with: email: user-1@example.com // password: password
+              Signup disabled temporarily. Play around with: 
+              {<br/>}email: user-1@example.com || user-2@example.com
+              {<br/>} password: password
             </p>
-            {/* <p className="forgot-password text-right">
-              <a href="#" disabled>Forgot password?</a>
-            </p> */}
           </form>
         </div>
       </div>
