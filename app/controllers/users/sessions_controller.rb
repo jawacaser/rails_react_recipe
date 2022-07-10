@@ -1,41 +1,34 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < ::Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
 
-  # GET /users/login === React Component
-  # def new
-  #   super
-  # end
-
+  # GET /users/login
+  # need to define a newly registered user session
+  
   # POST /users/login
-  # def create
-  #   super
-  # end
   def create
     @user = User.find_by_email(user_params[:email])
     return invalid_login_attempt unless @user
 
     if @user.valid_password?(user_params[:password])
         sign_in :user, @user
-        set_flash_message!(:notice, :signed_in)
         render json: @user
     else
         invalid_login_attempt
     end
   end
 
+  # GET /user
+  # used to provide user data to front-end on refresh or page close
   def show
     render json: current_user.to_json
   end
+
   # DELETE /users/logout
-  # def destroy
-  #   super
-  # end
   def destroy
+    # Original sign out procedure
+    # signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     signed_out = sign_out(current_user) if current_user.present?
-    # (Devise.sign_out_all_scopes ? sign_out : sign_out(current_user))
-    set_flash_message! :notice, :signed_out if signed_out
     yield if block_given?
     respond_to_on_destroy
   end
@@ -50,7 +43,7 @@ class Users::SessionsController < ::Devise::SessionsController
 
   def invalid_login_attempt
     warden.custom_failure!
-    render json: {error: 'invalid login attempt'}, status: :unprocessable_entity
+    render json: { error: 'invalid login attempt' }, status: :unprocessable_entity
   end
 
   def user_params
@@ -58,12 +51,12 @@ class Users::SessionsController < ::Devise::SessionsController
   end
 
   # Check if there is no signed in user before doing the sign out.
-  #
+  # LOGOUT SHOULD NOT BE AVAILABLE TO A USER NOT SIGNED IN, BUT JUST IN CASE:
   # If there is no signed in user, it will set the flash message and redirect
   # to the after_sign_out path.
   def verify_signed_out_user
     if all_signed_out?
-      set_flash_message! :notice, :already_signed_out
+      render json: { message: 'User already signed out' }
 
       respond_to_on_destroy
     end

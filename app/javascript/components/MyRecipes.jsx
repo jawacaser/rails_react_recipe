@@ -33,7 +33,7 @@ export default ({props}) => {
         <div className="py-5 px-4 position-relative">
             <main id="recipe-list" className="Container bg-white py-3 px-5">
                 <div className="text-end mb-3">
-                    <Link to="/recipe" className="btn btn-sm btn-secondary">
+                    <Link to="/recipe" className="btn btn-sm btn-primary">
                         Create New Recipe
                     </Link>
                 </div>

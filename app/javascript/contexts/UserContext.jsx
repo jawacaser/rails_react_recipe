@@ -48,7 +48,6 @@ export function UserContextProvider({ children }) {
         // user back to the home page (unauthenticated action)-- 
         // thus triggering the effect, updating the front-end state
         if (window.location.pathname === '/') {
-            console.log('home triggered')
             refreshUser();
         }
     }, [window.location.pathname])

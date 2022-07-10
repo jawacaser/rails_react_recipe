@@ -39,8 +39,9 @@ export default ({props}) => {
                         login functionality using Devise. Work in progress!
                         TODO: Wire up Registration, change some hardcoded backend,
                         "share to social media" buttons?, prettier contact page,
-                        create a shared index page (a la pinterest)
-                        
+                        create a shared index page (a la pinterest), pagination?,
+                        user profile page, combat FOUC
+                        <br />
                         id: {currentUser.id}, role: {currentUser.role}, username: {currentUser.username}
                     </p>
                 </div>

@@ -52,7 +52,6 @@ export default (props) => {
     .then(response => {
         if (!response) { return }
         JSON.stringify(response);
-        console.log('login: '+ response)
         loginUser({ id: response.id, role: response.role, username: response.username })
         navigate('/my-recipes', { replace: true })
     })
