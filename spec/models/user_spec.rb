@@ -11,6 +11,10 @@ class UserTest < ActiveSupport::TestCase
       # expect(user).to be_an_instance_of User
     end
 
+    it "is valid" do
+      expect(@user).to be_valid
+    end
+    
     it "has a username" do
       expect(@user.username).to eq("MyUsername")
       # expect(user.username).to eq("MyUsername")

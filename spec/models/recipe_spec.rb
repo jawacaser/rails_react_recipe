@@ -8,6 +8,10 @@ class RecipeTest < ActiveSupport::TestCase
       expect(@recipe).to be_an_instance_of(Recipe)
     end
 
+    it "is valid" do
+      expect(@recipe).to be_valid
+    end
+
     it "belongs to user" do
       @user = User.find_by_email("test@example.com")
       expect(@recipe.user_id).to eq(@user.id)

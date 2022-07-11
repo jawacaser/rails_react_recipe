@@ -7,5 +7,9 @@ class LikeTest < ActiveSupport::TestCase
     it "exists" do
       expect(@like).to be_an_instance_of(Like)
     end
+
+    it "is valid" do
+      expect(@like).to be_valid
+    end
   end
 end
