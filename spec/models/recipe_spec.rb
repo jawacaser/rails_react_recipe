@@ -2,7 +2,8 @@ require "rails_helper"
 
 class RecipeTest < ActiveSupport::TestCase
   RSpec.describe "Recipe" do
-    let(:recipe) { create(:recipe, user: build(:user, id: 1)) }
+    let(:user) { build(:user) }
+    let(:recipe) { create(:recipe, user: user) }
     
     it "exists" do
       expect(recipe).to be_an_instance_of(Recipe)
@@ -13,7 +14,7 @@ class RecipeTest < ActiveSupport::TestCase
     end
 
     it "belongs to user" do
-      expect(recipe.user_id).to eq(1)
+      expect(recipe.user_id).to eq(user.id)
     end
   end
 end

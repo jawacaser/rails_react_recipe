@@ -52,13 +52,10 @@ class Users::SessionsController < ::Devise::SessionsController
 
   # Check if there is no signed in user before doing the sign out.
   # LOGOUT SHOULD NOT BE AVAILABLE TO A USER NOT SIGNED IN, BUT JUST IN CASE:
-  # If there is no signed in user, it will set the flash message and redirect
-  # to the after_sign_out path.
+  # If there is no signed in user, it will send json message
   def verify_signed_out_user
     if all_signed_out?
       render json: { message: 'User already signed out' }
-
-      respond_to_on_destroy
     end
   end
 
@@ -73,7 +70,9 @@ class Users::SessionsController < ::Devise::SessionsController
     # support returning empty response on GET request
     respond_to do |format|
       format.all { head :no_content }
-      format.any(*navigational_formats) { redirect_to after_sign_out_path_for(resource_name) }
+      format.any(*navigational_formats) { render plain: "Logged out" }
+      # We will let the front-end handle the redirect on log out
+      # format.any(*navigational_formats) { redirect_to after_sign_out_path_for(resource_name) }
     end
   end
 end
