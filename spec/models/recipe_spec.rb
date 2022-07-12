@@ -2,19 +2,18 @@ require "rails_helper"
 
 class RecipeTest < ActiveSupport::TestCase
   RSpec.describe "Recipe" do
-    before { @recipe = FactoryBot.create(:recipe) }
+    let(:recipe) { create(:recipe, user: build(:user, id: 1)) }
     
     it "exists" do
-      expect(@recipe).to be_an_instance_of(Recipe)
+      expect(recipe).to be_an_instance_of(Recipe)
     end
 
     it "is valid" do
-      expect(@recipe).to be_valid
+      expect(recipe).to be_valid
     end
 
     it "belongs to user" do
-      @user = User.find_by_email("test@example.com")
-      expect(@recipe.user_id).to eq(@user.id)
+      expect(recipe.user_id).to eq(1)
     end
   end
 end

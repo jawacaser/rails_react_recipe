@@ -18,9 +18,16 @@ module RailsReactRecipe
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
+    
     # https://stackoverflow.com/questions/11702265/can-factorybot-generate-factories-after-your-models-have-been-created
     config.generators do |g|
+      g.test_framework(
+        :rspec,
+        fixtures: false,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false
+      )
       g.fixture_replacement :factory_bot, suffix_factory: 'factory'
     end
 

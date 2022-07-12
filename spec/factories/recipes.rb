@@ -5,6 +5,6 @@ FactoryBot.define do
     instruction { "Block of instructions text" }
     image { "www.image.com" }
     shared { false }
-    user { FactoryBot.build(:user) }
+    user
   end
 end
