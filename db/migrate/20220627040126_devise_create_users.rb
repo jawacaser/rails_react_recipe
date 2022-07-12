@@ -9,8 +9,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.string :username,           null: false, default: ""
       # Roles defined as [ user: 0, admin: 1 ]
       t.integer :role,              null: false, default: 0
-      # Tracks session so it can invalidate cookie immediately on logout
-      t.string :session_token
 
       ## Recoverable
       t.string   :reset_password_token

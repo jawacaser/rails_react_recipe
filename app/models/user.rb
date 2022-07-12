@@ -12,15 +12,6 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   has_many :likes
 
-  # Method of terminating session while client cookie persists
-  # https://makandracards.com/makandra/53562-devise-invalidating-all-sessions-for-a-user
-  def authenticatable_salt
-    "#{super}#{session_token}"
-  end
-  def invalidate_all_sessions!
-    update_attribute(:session_token, SecureRandom.hex)
-  end
-
   # New users set to 'user' by default
   def set_default_role
     self.role ||= :user
