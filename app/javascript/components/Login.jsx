@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 import useToastContext from '../hooks/useToastContext';
+import SignUpModal from './SignUpModal';
 
 export default (props) => {
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ export default (props) => {
     }
     await fetch(url, {
         method: 'POST',
-        mode: 'cors',
         headers: {
             "X-CSRF-Token": token,
             "Content-Type": "application/json"
@@ -61,8 +61,8 @@ export default (props) => {
   return (
     <div className="vw-100 vh-100 bg_secondary-color d-flex align-items-center justify-content-center">
       <div>
-        <h2 className="text-white text-center fst-italic mb-3">Let's Eat Well!</h2>
-        <div className="container bg-light" style={{maxWidth: "500px"}}>
+        <h2 className="text-white text-center fst-italic mb-4">Let's Eat Well!</h2>
+        <div className="container bg-light p-3" style={{maxWidth: "500px"}}>
           <form onSubmit={handleSubmit} className="p-2 bg-white">
             <h3 className="text-center">Sign In</h3>
             <div className="mb-3 form-floating form-group">              
@@ -83,6 +83,7 @@ export default (props) => {
                 id="password"
                 name="password"
                 type="password"
+                minLength={6}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control"
                 placeholder="Enter password"                
@@ -113,11 +114,18 @@ export default (props) => {
               </button>
             </div>
             <p className="forgot-password text-right">
-              Signup disabled temporarily. Play around with: 
-              {<br/>}email: user-1@example.com || user-2@example.com
-              {<br/>} password: password
+              <strong>ATTENTION:</strong> the site registration process is still under development. 
+              It is strongly recommended to use a dummy email and password to sign up at this time. Alternatively, play around with: 
+              {<br/>}email: user-1@example.com
+              {<br/>}password: password
             </p>
           </form>
+          <div className="mb-3">
+            <SignUpModal />
+            <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#signup-modal">
+              Sign Up
+            </button>
+          </div>
         </div>
       </div>
     </div>
