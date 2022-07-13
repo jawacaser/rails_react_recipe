@@ -19,9 +19,19 @@ export default ({recipes}) => {
     ))
 
     const noRecipe = (
-        <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
-            <h4 className="mb-4">No recipes yet. Want to <Link to="/recipe">make one</Link>?</h4>
-            <img className="img-fluid" style={{maxWidth: "720px"}} src="https://lh3.googleusercontent.com/pw/AM-JKLXTGKp7FnGPm-6AWGsT810oJhgZJt9JgEmyJ7APd5zJRd15ahLbwPcISshwH3e21OeRmvbH_VR3m3PNSrDjTzU0TC5Zbpfte_cYyxHD3O_7Qat9Y8moWhpfDCqCVBec9Jzu9g6knnpDlRdPXXyl-8Pt=w1292-h862-no?authuser=0" />
+        <div className="d-flex text-center justify-content-center align-items-center">
+            <div className="col-md-6 col-lg-4">
+            <div className="card shadow p-3 mb-5 bg-white rounded primary-color">
+                <img className="card-img-top" alt="empty plate image" src="https://lh3.googleusercontent.com/pw/AM-JKLXTGKp7FnGPm-6AWGsT810oJhgZJt9JgEmyJ7APd5zJRd15ahLbwPcISshwH3e21OeRmvbH_VR3m3PNSrDjTzU0TC5Zbpfte_cYyxHD3O_7Qat9Y8moWhpfDCqCVBec9Jzu9g6knnpDlRdPXXyl-8Pt=w1292-h862-no?authuser=0" />
+                <div className="card-body text-center">
+                    <h5 className="card-title">Empty Plate</h5>
+                    <p className="card-text">No recipes yet, want to create one?</p>
+                    <Link to="/recipe" className="btn custom-button">
+                        Create Recipe
+                    </Link>
+                </div>
+            </div>
+        </div>
         </div>
     );
 
