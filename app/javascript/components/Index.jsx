@@ -9,6 +9,7 @@ import NewRecipe from "./NewRecipe";
 import EditRecipe from "./EditRecipe";
 import Contact from "./Contact";
 import MyRecipes from "./MyRecipes";
+import MyAccount from "./MyAccount";
 import NotFound from "./NotFound";
 import Login from "./Login";
 import Navbar from "./Navbar";
@@ -23,6 +24,7 @@ export default (
           <Route path="/login" exact element={<Login />} />
           <Route path="/recipes" exact element={<Recipes />} />
           <Route path="/my-recipes" exact element={<MyRecipes />} />
+          <Route path="/account" exact element={<MyAccount />} />
           <Route path="/recipe/:id" exact element={<Recipe />} />
           <Route path="/recipe" exact element={<NewRecipe />} />
           <Route path="/edit/:id" exact element={<EditRecipe />} />

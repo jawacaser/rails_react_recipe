@@ -21,24 +21,19 @@ export default (props) => {
     event.preventDefault();
     const url = '/users/login'
     const token = document.querySelector('meta[name="csrf-token"]').content;
-    let session = {
-      "authenticity_token": token,
-      email,
-      password,
-      "remember_me": remember,
-      "commit": "Log in"
-    }
     let user = {
       email,
-      password
+      password,
+      "remember_me": remember
     }
+    
     await fetch(url, {
         method: 'POST',
         headers: {
             "X-CSRF-Token": token,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({user, session})
+        body: JSON.stringify({user})
     })
     .then(response => {
         if (response.ok) {
@@ -63,9 +58,9 @@ export default (props) => {
       <div>
         <h2 className="text-white text-center fst-italic mb-4">Let's Eat Well!</h2>
         <div className="container bg-light p-3" style={{maxWidth: "500px"}}>
-          <form onSubmit={handleSubmit} className="p-2 bg-white">
+          <form onSubmit={handleSubmit} className="p-2 bg-white" id="login">
             <h3 className="text-center">Sign In</h3>
-            <div className="mb-3 form-floating form-group">              
+            <div className="mb-3 form-floating form-group">
               <input
                 required
                 id="email"

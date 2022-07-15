@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     # Request sent to backend on refresh of app to persist user data for frontend
-    get '/user', to: 'users/sessions#show'
+    get '/session', to: 'users/sessions#show'
+    post '/verify', to: 'users/sessions#password_check'
   end
   
   devise_for :users, controllers: {

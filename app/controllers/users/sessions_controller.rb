@@ -21,7 +21,17 @@ class Users::SessionsController < ::Devise::SessionsController
   # GET /user
   # used to provide user data to front-end on refresh or page close
   def show
-    render json: current_user.to_json
+    render json: current_user.to_json(only: [:id, :email, :username, :role])
+  end
+
+  # POST /verify
+  def password_check
+    user = User.find_by_email(params[:user][:email])
+    if user.valid_password?(params[:user][:password])
+      render json: { verified: 'true' }
+    else
+      render json: { error: 'could not validate' }, status: :unprocessable_entity
+    end
   end
 
   # DELETE /users/logout
@@ -47,7 +57,7 @@ class Users::SessionsController < ::Devise::SessionsController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :remember_me)
   end
 
   # Check if there is no signed in user before doing the sign out.

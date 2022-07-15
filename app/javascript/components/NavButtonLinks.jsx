@@ -9,7 +9,7 @@ export function NavButtonLinks(props) {
         return (<ul className="nav nav-pills mx-3">
             <FeaturedLink />
             <MyRecipesLink />
-            <LogoutButton />
+            <DropDown />
             </ul>
         )
     } else {
@@ -37,6 +37,19 @@ const LoginButton =()=> {
         <li className="nav-item">
             <Link to="/login" className="nav-link text-white">Login</Link>
         </li>)
+}
+const DropDown =()=> {
+    return(
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account/Logout
+          </a>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/account" className="dropdown-item">My Account</Link></li>
+            <LogoutButton />
+          </ul>
+        </li>
+    )
 }
 const LogoutButton =(props)=> {
     const { logoutUser } = useContext(UserContext);
@@ -69,7 +82,8 @@ const LogoutButton =(props)=> {
     }
 
     return(
-        <li className="nav-item">
-            <button className="nav-link text-white" onClick={logout}>Logout</button>
-        </li>)
+        <li>
+            <button className="dropdown-item" onClick={logout}>Logout</button>
+        </li>
+    )
 }

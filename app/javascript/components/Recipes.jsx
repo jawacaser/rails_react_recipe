@@ -3,8 +3,6 @@ import { Link, Navigate } from 'react-router-dom';
 import RecipeCards from './RecipeCards';
 import UserContext from '../contexts/UserContext';
 
-
-
 export default ({props}) => {
     const [recipes, setRecipes] = useState([])
     const backgroundImg = "https://lh3.googleusercontent.com/pw/AM-JKLXF6NK9eM4qZ_cdMQnUY3KxMDvdiPYj9hslTMJdOmZDp47A2wwdz3aZVKkavtuvIydVSY_w8fQNOA0Z2pGoqFTqEoy78x7fjjHXOUY1Q3RQMYdCr7-BlyaaHoBsJiaLwQC8SsfzEhCi_jVmBjWRqu4=w1873-h1240-no?authuser=0"
@@ -37,8 +35,7 @@ export default ({props}) => {
                         Short description about Let's Eat Well, etc etc etc.
                         This app is built with Rails 7 and React. I have implemented
                         login functionality using Devise. Work in progress!
-                        TODO: Add user profile page,
-                        "share to social media" buttons?, prettier contact page,
+                        TODO: "Social Media" buttons?, prettier contact page,
                         create a shared index page (a la pinterest), pagination?,
                         combat FOUC, explore photo uploading / storing options
                         <br />
@@ -46,21 +43,23 @@ export default ({props}) => {
                     </p>
                 </div>
             </section>
-            <div className="py-5 px-4 position-relative">
-                <main id="recipe-list" className="Container bg-white py-3 px-5">
+            <div className="py-3 px-4 position-relative">
+                <main id="recipe-list" className="Container bg-light bg-opacity-50 py-4 px-5">
+                    <h2 className="display-5 mt-3">Featured Collection</h2>
+                    <hr />
                     <RecipeCards recipes={recipes} />
                     <div className="btn-group d-flex justify-content-between">
-                        <Link to="/" className="btn btn-secondary">
+                        <Link to="/" className="btn btn-outline-dark">
                             Home
                         </Link>
-                        <button className="btn btn-secondary" onClick={()=>window.scrollTo({
+                        <button className="btn btn-outline-dark" onClick={()=>window.scrollTo({
                             top: 100,
                             left: 100,
                             behavior: 'smooth'
                             })}>
                             Back to Top
                         </button>
-                        <Link to="/contact" className="btn btn-secondary">
+                        <Link to="/contact" className="btn btn-outline-dark">
                             Contact
                         </Link>
                     </div>

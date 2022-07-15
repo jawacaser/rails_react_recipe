@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useToastContext from '../hooks/useToastContext';
 import { Modal } from 'bootstrap';
-
+import { LiveAlert } from './LiveAlert';
 
 export default (props) => {
     const [email, setEmail] = useState('');
@@ -10,14 +10,6 @@ export default (props) => {
     const [confirmPw, setConfirmPw] = useState('');
     const [alertMsg, setAlertMsg] = useState('');
     const addToast = useToastContext();
-
-    const LiveAlert = (props) => {
-        return (
-            <div className="alert alert-info alert-dismissible" role="alert">
-                {props.message}
-            </div>
-        )
-    }
 
     function success() {
         setAlertMsg("You signed up successfully! You may close this window and log in now.")
@@ -138,7 +130,7 @@ export default (props) => {
                             <div>{password == confirmPw ? 
                             <p className="text-success">Passwords Match!</p> : <p className="text-danger">Passwords must match...</p>}
                             </div> }
-                            { alertMsg ? <LiveAlert message={alertMsg} /> : null }
+                            { alertMsg ? <LiveAlert message={alertMsg} dismissable={false} /> : null }
                         <div className="modal-footer">
                             <button type="submit" id="signup-submit" className="btn btn-success">Submit</button>
                             <button type="button" className="btn btn-secondary" onClick={reset}>Cancel</button>

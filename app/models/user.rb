@@ -12,6 +12,11 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   has_many :likes
 
+  # Validate username (added 7/14)
+  validates :username, uniqueness: true, presence: true, format: { with: /\A[a-zA-Z]+([a-zA-Z]|\d)*\Z/ }
+
+  private
+  
   # New users set to 'user' by default
   def set_default_role
     self.role ||= :user

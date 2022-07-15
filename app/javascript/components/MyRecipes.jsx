@@ -30,8 +30,10 @@ export default ({props}) => {
     }, []);
 
     return(
-        <div className="py-5 px-4 position-relative">
+        <div className="py-4 px-4 position-relative">
+            <h1 className="text-center mb-4 fst-italic">Let's Eat Well</h1>
             <main id="recipe-list" className="Container bg-white py-3 px-5">
+                <h2 className="display-6 text-start">Your Recipe Collection <hr/></h2>
                 <div className="text-end mb-3">
                     <Link to="/recipe" className="btn btn-sm btn-primary">
                         Create New Recipe
@@ -39,17 +41,17 @@ export default ({props}) => {
                 </div>
                 <RecipeCards recipes={recipes} />
                 <div className="btn-group d-flex justify-content-between">
-                    <Link to="/" className="btn btn-secondary">
+                    <Link to="/" className="btn btn-outline-dark">
                         Home
                     </Link>
-                    <button className="btn btn-secondary" onClick={()=>window.scrollTo({
+                    <button className="btn btn-outline-dark" onClick={()=>window.scrollTo({
                         top: 100,
                         left: 100,
                         behavior: 'smooth'
                         })}>
                         Back to Top
                     </button>
-                    <Link to="/contact" className="btn btn-secondary">
+                    <Link to="/contact" className="btn btn-outline-dark">
                         Contact
                     </Link>
                 </div>

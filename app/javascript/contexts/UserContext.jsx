@@ -15,7 +15,7 @@ export function UserContextProvider({ children }) {
     const token = document.querySelector('meta[name="csrf-token"]').content;
 
     function refreshUser() {
-        fetch('/user', {
+        fetch('/session', {
             method: 'GET',
             headers: {
                 "X-CSRF-Token": token,
@@ -31,7 +31,7 @@ export function UserContextProvider({ children }) {
         .then(response=> {
         if (!response) { return }
         JSON.stringify(response);
-        setCurrentUser({ id: response.id, role: response.role, username: response.username })
+        setCurrentUser({ id: response.id, role: response.role, username: response.username, email: response.email })
         })
         .catch(error => console.log(error.message))
     }
