@@ -15,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
 
     if @user.update(user_params)
-      sign_in(current_user, :bypass => true)
+      bypass_sign_in(current_user)
       render json: @user
     else
       warden.custom_failure!

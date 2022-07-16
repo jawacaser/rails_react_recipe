@@ -148,26 +148,28 @@ export default ({props}) => {
 
 
     return (
-        <div className="container my-4">
-            <div className="row">
-                <div className="col-sm-12 col-lg-6 offset-lg-3">
-                    <h1 className="font-weight-normal mb-3">
-                        Need to make some changes?
-                    </h1>
-                    <Form 
-                        onSubmit={onSubmit} 
-                        onChange={onChange}
-                        name={name}
-                        ingredients={ingredients}
-                        instruction={instruction}
-                        image={image}
-                        shared={shared}
-                    />
-                    <div className="text-center">
-                    <DeleteModal />
-                    <button type="button" className="btn btn-danger my-2 btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal">
-                            Delete Recipe
-                    </button>
+        <div className="bg-white py-2 my-5">
+            <div className="container my-4">
+                <div className="row">
+                    <div className="col-sm-12 col-lg-6 offset-lg-3">
+                        <h1 className="font-weight-normal mb-3 text-center">
+                            Need to make some changes?
+                        </h1>
+                        <Form 
+                            onSubmit={onSubmit} 
+                            onChange={onChange}
+                            name={name}
+                            ingredients={ingredients}
+                            instruction={instruction}
+                            image={image}
+                            shared={shared}
+                        />
+                        <div className="text-center">
+                        <DeleteModal />
+                        <button type="button" className="btn btn-danger my-2 btn-sm" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                Delete Recipe
+                        </button>
+                        </div>
                     </div>
                 </div>
             </div>

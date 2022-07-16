@@ -56,7 +56,7 @@ export default ({props}) => {
     )
     
     return (
-        <div>
+        <div className="bg-white">
             <div className="hero position-relative d-flex align-items-center justify-content-center">
                 <img onError={()=> setImgValid(false)} src={ imgValid ? oneRecipe.image : errorImg } alt={`${oneRecipe.name} image`} className="img-fluid position-absolute" />
                 <div className="overlay bg-dark position-absolute" />

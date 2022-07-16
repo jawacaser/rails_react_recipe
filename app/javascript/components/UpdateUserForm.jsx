@@ -157,8 +157,8 @@ export const UpdateUserForm =(props)=> {
 
     return (
         <div>
-            <div className="container-fluid bg-light bg-opacity-25 p-3 border border-2 rounded text-center">
-                <h3 className="mb-2">Update Options</h3>
+            <div className="container-fluid bg-light bg-opacity-25 mt-2 p-3 border border-2 rounded text-center">
+                <h3 className="mb-3">Update Options</h3>
                 <UpdateOptions />
             </div>
             <form onSubmit={submitUpdate} id="update-form" className="border border-2 rounded mt-4 p-3 bg_secondary-color">
