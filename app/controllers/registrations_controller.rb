@@ -11,9 +11,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @user = User.find_by_email(user_params[:email])
+    # @user = User.find_by_email(user_params[:email])
+    @user = current_user
 
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
+      sign_in(current_user, :bypass => true)
       render json: @user
     else
       warden.custom_failure!
@@ -36,4 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
       params.require(:user).permit(:email, :password, :password_confirmation, :username)
     end
 
+    # def after_update_path_for(resource)
+    #   user_path(current_user)
+    # end
 end

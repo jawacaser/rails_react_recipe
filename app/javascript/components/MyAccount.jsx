@@ -54,10 +54,14 @@ export default () => {
     return (
         <div className="vh-100 primary-color">
         <br/>
-        <div className="container d-flex text-center align-items-center justify-content-center mt-5">
-            { verified ? <UpdateUserForm /> : 
+        <div className="container bg_secondary-color p-2">
+            <h1 className="m-3 text-center text-white display-6">Account Settings</h1>
+            <hr className="text-white" />
+        </div>
+            <div className="container d-flex mt-2 text-center align-items-center justify-content-center">
+                { verified ? <UpdateUserForm /> : 
                 <div>
-                    <h3 className="mb-2">My Account Settings</h3>
+                    <h4 className="text-start">Current user information:</h4>
                     <div className="align-items-center mb-3">
                         <ul className="list-group list-group-horizontal mb-1">
                             <li className="list-group-item list-group-item-secondary">Email:</li>
@@ -68,6 +72,8 @@ export default () => {
                             <li className="text-muted list-group-item flex-fill">{currentUser.username}</li>
                         </ul>
                     </div>
+                    <hr/>
+                    <br/>
                     <LiveAlert message={alertMsg} dismissable={false} />
                     <form onSubmit={verifyPassword} id="verify" className="mt-3">
                         <div className="mb-3 form-floating form-group">
@@ -83,11 +89,11 @@ export default () => {
                             />
                             <label className="form-label">Password</label>
                         </div>
-                        <button type="submit" className="btn btn-secondary">Verify</button>
+                        <button type="submit" className="btn custom-button">Verify</button>
                     </form>
                 </div>
-            }
-        </div>
+                }
+            </div>
         </div>
     )
 }

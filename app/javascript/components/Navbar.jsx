@@ -19,7 +19,7 @@ export default (props) => {
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light mb-5 fixed-top" style={{'backgroundColor': '#293241'}}>
-                <div className="container-fluid">
+                <div className="container">
                     <a href="/" className="navbar-brand text-white">Let's Eat Well</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse" aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>   

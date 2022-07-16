@@ -3,19 +3,64 @@ import { LiveAlert } from './LiveAlert';
 import useToastContext from '../hooks/useToastContext';
 import UserContext from '../contexts/UserContext';
 
-export const UpdateUserForm =(props)=> {
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('');
-    const [confirmPw, setConfirmPw] = useState('');
-    const [alertMsg, setAlertMsg] = useState('');
+export const UpdateUserForm =(props)=> { 
+    const [alert, setAlert] = useState({message: '', flavor: ''});
     const [field, setField] = useState('')
     const addToast = useToastContext();
-    const { currentUser } = useContext(UserContext)
+    const { loginUser } = useContext(UserContext)
+
+    function buildUserInfo() {
+        if (field === 'email') {
+            let value = document.getElementById('new-email').value
+            return { "email": value }
+        } else if (field === 'username') {
+            let value = document.getElementById('new-username').value
+            return { "username": value }
+        } else if (field === 'password') {
+            let value = document.getElementById('new-password').value
+            let valueConfirm = document.getElementById('new-password-confirmation').value
+            return { "password": value, "password_confirmation": valueConfirm }
+        }
+    }
+
+    function capFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    async function submitUpdate(e) {
+        e.preventDefault();
+        const url = '/users/register'
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+        let user = buildUserInfo()
+        await fetch(url, {
+            method: 'PUT',
+            headers: {
+                "X-CSRF-Token": token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({user})
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else if (response.status === 422) {
+                setAlert({ message:`There was a problem updating your ${field}.`, flavor: "warning" })
+            }
+            addToast("Uh oh, something went wrong...")
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => {
+            if (!response) { return }
+            JSON.stringify(response);
+            loginUser({ id: response.id, role: response.role, username: response.username, email: response.email  })
+            setAlert({ message:`${capFirstLetter(field)} updated successfully!`, flavor: "success" })
+        })
+        .catch(error => console.log(error.message));
+    }
 
     function handleSelection(selection) {
         if (!selection) { 
-            return (<h3 className="fst-italic">Select a field to update...</h3>)
+            return (<h6 className="fst-italic text-white">Select a field to update...</h6>)
         } else if (selection === "email") {
             return <EmailField />
         } else if (selection === "username") {
@@ -36,6 +81,7 @@ export const UpdateUserForm =(props)=> {
     }
 
     const EmailField =()=> {
+        const [email, setEmail] = useState('');
         return (
             <div className="mb-3 form-floating form-group">              
                 <input
@@ -51,6 +97,7 @@ export const UpdateUserForm =(props)=> {
     }
 
     const UsernameField =()=> {
+        const [username, setUsername] = useState('');
         return (
             <div className="mb-3 form-floating form-group">              
                 <input
@@ -66,6 +113,8 @@ export const UpdateUserForm =(props)=> {
     }
 
     const PasswordField =()=> {
+        const [password, setPassword] = useState('');
+        const [confirmPw, setConfirmPw] = useState('');
         return (
             <div>
                 <div className="mb-3 form-floating form-group">             
@@ -76,12 +125,11 @@ export const UpdateUserForm =(props)=> {
                         type="password"
                         minLength={6}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="form-control"
-                        placeholder="Enter password"                
+                        className="form-control"             
                     />
                     <label className="form-label">New Password</label>
-                    </div>
-                    <div className="mb-3 form-floating form-group">             
+                </div>
+                <div className="mb-3 form-floating form-group">             
                     <input
                         required
                         id="new-password-confirmation"
@@ -89,45 +137,37 @@ export const UpdateUserForm =(props)=> {
                         type="password"
                         onChange={(e) => setConfirmPw(e.target.value)}
                         className="form-control"
-                        placeholder="Confirm password"
                     />
                     <label className="form-label">Confirm Password</label>
-                    </div>
+                </div>
                     { password == '' ? null :
                         <div>{password == confirmPw ? 
                         <p className="text-success">Passwords Match!</p> : <p className="text-danger">Passwords must match...</p>}
                     </div> }
-                    { alertMsg ? <LiveAlert message={alertMsg} dismissable={true} /> : null }
             </div>
         )
     }
 
     function reset() {
-        setEmail('');
-        setUsername('');
-        setPassword('');
-        setConfirmPw('');
-        setAlertMsg('');
+        setAlert('');
         setField('')
         document.getElementById('update-submit').disabled = false;
         document.getElementById('update-form').reset();
     }
 
-    function handleUpdateUser(e) {
-        e.preventDefault();
-        return addToast("clicked submit")
-    }
-
     return (
-        <div className="text-center">
-            <h2>Update Options</h2>
-            <UpdateOptions />
-            <h6 className="mt-4">Use this form to update your information.</h6>                   
-            <form onSubmit={handleUpdateUser} id="update-form">
+        <div>
+            <div className="container-fluid bg-light bg-opacity-25 p-3 border border-2 rounded text-center">
+                <h3 className="mb-2">Update Options</h3>
+                <UpdateOptions />
+            </div>
+            <form onSubmit={submitUpdate} id="update-form" className="border border-2 rounded mt-4 p-3 bg_secondary-color">
+                <h4 className="mt-2 text-white">Use this form to update your { field ? field : "information"}.</h4>
                 {handleSelection(field)}
-                <div className="footer d-flex justify-content-evenly mt-2">
+                { alert.message ? <LiveAlert message={alert.message} dismissable={false} flavor={alert.flavor} /> : null }
+                <div className="footer d-flex justify-content-evenly mt-4">
                     <button type="submit" id="update-submit" className="btn btn-success">Update</button>
-                    <button type="button" className="btn btn-secondary" onClick={reset}>Cancel</button>
+                    <button type="button" className="btn btn-light" onClick={reset}>Cancel</button>
                 </div>
             </form>
         </div>

@@ -31,14 +31,14 @@ export default ({props}) => {
 
     return(
         <div className="py-4 px-4 position-relative">
-            <h1 className="text-center mb-4 fst-italic">Let's Eat Well</h1>
             <main id="recipe-list" className="Container bg-white py-3 px-5">
-                <h2 className="display-6 text-start">Your Recipe Collection <hr/></h2>
-                <div className="text-end mb-3">
-                    <Link to="/recipe" className="btn btn-sm btn-primary">
+                <div className="d-flex my-4 justify-content-between align-items-end">
+                    <h2 className="display-6">Your Recipe Collection </h2>
+                    <Link to="/recipe" className="btn btn-sm btn-primary align-self-center">
                         Create New Recipe
                     </Link>
                 </div>
+                <hr/>
                 <RecipeCards recipes={recipes} />
                 <div className="btn-group d-flex justify-content-between">
                     <Link to="/" className="btn btn-outline-dark">
