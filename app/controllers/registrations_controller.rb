@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(user_params)
     if @user.save
+      sign_in(@user)
       render json: @user
     else
       warden.custom_failure!
@@ -41,4 +42,13 @@ class RegistrationsController < Devise::RegistrationsController
     # def after_update_path_for(resource)
     #   user_path(current_user)
     # end
+
+    def after_sign_up_path_for(resource)
+      "/my-recipes"
+    end
+
+    def after_inactive_sign_up_path_for(resource)
+      "/my-recipes"
+    end
+
 end

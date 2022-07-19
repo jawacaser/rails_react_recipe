@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 import useToastContext from '../hooks/useToastContext';
+import ForgotPwModal from './ForgotPwModal';
 import SignUpModal from './SignUpModal';
 
 export default (props) => {
@@ -10,7 +11,13 @@ export default (props) => {
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(0)
   const addToast = useToastContext();
-  const { loginUser } = useContext(UserContext)
+  const { loginUser, currentUser } = useContext(UserContext)
+
+  useEffect(()=> {
+    if (currentUser.email) {
+      navigate('/recipes')
+    }
+  })
 
   function badCredentials() {
     const el = document.getElementById('bad-credentials');
@@ -56,10 +63,10 @@ export default (props) => {
   return (
     <div className="vw-100 vh-100 bg_secondary-color d-flex align-items-center justify-content-center">
       <div>
-        <h2 className="text-white text-center fst-italic mb-4">Let's Eat Well!</h2>
+        <h2 className="text-white text-center fst-italic mb-4 display-5">Let's Eat Well!</h2>
         <div className="container bg-light p-3" style={{maxWidth: "500px"}}>
           <form onSubmit={handleSubmit} className="p-2 bg-white" id="login">
-            <h3 className="text-center">Sign In</h3>
+            <h3 className="text-center mb-2">Login</h3>
             <div className="mb-3 form-floating form-group">
               <input
                 required
@@ -108,17 +115,22 @@ export default (props) => {
                 Submit
               </button>
             </div>
-            <p className="forgot-password text-right">
+            <hr />
+            <p className="forgot-password text-right mt-1">
               <strong>ATTENTION:</strong> the site registration process is still under development. 
               It is strongly recommended to use a dummy email and password to sign up at this time. Alternatively, play around with: 
               {<br/>}email: user-1@example.com
               {<br/>}password: password
             </p>
           </form>
-          <div className="mb-3">
+          <div className="mb-3 d-flex gap-2 row">
             <SignUpModal />
-            <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#signup-modal">
+            <ForgotPwModal />
+            <button className="btn border border-dark" style={{backgroundColor : "#C1E1C1"}} data-bs-toggle="modal" data-bs-target="#signup-modal">
               Sign Up
+            </button>
+            <button className="btn border border-dark" style={{backgroundColor : "#C1E1C1"}} data-bs-toggle="modal" data-bs-target="#pwReset-modal">
+              Forgot Password?
             </button>
           </div>
         </div>

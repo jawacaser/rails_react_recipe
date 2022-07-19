@@ -13,6 +13,7 @@ import MyAccount from "./MyAccount";
 import NotFound from "./NotFound";
 import Login from "./Login";
 import Navbar from "./Navbar";
+import EditPassword from "./EditPassword";
 
 export default (
   <Router>
@@ -22,6 +23,7 @@ export default (
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/login" exact element={<Login />} />
+          <Route path="/users/password/edit/*" exact element={<EditPassword />} />
           <Route path="/recipes" exact element={<Recipes />} />
           <Route path="/my-recipes" exact element={<MyRecipes />} />
           <Route path="/account" exact element={<MyAccount />} />

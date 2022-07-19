@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import useToastContext from '../hooks/useToastContext';
 import { Modal } from 'bootstrap';
 import { LiveAlert } from './LiveAlert';
+import UserContext from '../contexts/UserContext';
 
 export default (props) => {
     const [email, setEmail] = useState('');
@@ -10,10 +11,13 @@ export default (props) => {
     const [confirmPw, setConfirmPw] = useState('');
     const [alertMsg, setAlertMsg] = useState('');
     const addToast = useToastContext();
+    const { loginUser } = useContext(UserContext)
 
-    function success() {
-        setAlertMsg("You signed up successfully! You may close this window and log in now.")
-        document.getElementById('signup-submit').disabled = true;
+    function hideModal() {
+        const myModalEl = document.getElementById('signup-modal')
+        const modal = Modal.getInstance(myModalEl)
+        modal.hide();
+        
     }
 
     function reset() {
@@ -61,7 +65,9 @@ export default (props) => {
         .then(response => {
             if (!response) { return }
             JSON.stringify(response);
-            success();
+            hideModal();
+            addToast("You signed up, woohoo!")
+            loginUser({ id: response.id, role: response.role, username: response.username, email: response.email  })
         })
         .catch(error => console.log(error.message));
     }
@@ -75,7 +81,7 @@ export default (props) => {
                     <button type="button" className="btn-close" onClick={reset} aria-label="Close"></button>
                 </div>
                 <div className="modal-body text-center">
-                    <h6>You will be able to create, share, and like recipes after signing up!</h6>                   
+                    <h6 className="my-2">Sign up to create, share, and like recipes!</h6>                   
                     <form onSubmit={handleSignUp} id="signup-form">
                         <div className="mb-3 form-floating form-group">              
                         <input
@@ -132,7 +138,7 @@ export default (props) => {
                             </div> }
                             { alertMsg ? <LiveAlert message={alertMsg} dismissable={false} /> : null }
                         <div className="modal-footer">
-                            <button type="submit" id="signup-submit" className="btn btn-success">Submit</button>
+                            <button type="submit" id="signup-submit" className="btn custom-button">Submit</button>
                             <button type="button" className="btn btn-secondary" onClick={reset}>Cancel</button>
                         </div>
                     </form>
